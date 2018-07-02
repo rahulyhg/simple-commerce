@@ -50,3 +50,21 @@ html{
     opacity: 0;
   }
 }
+
+.home-section{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.home-section-title{
+    text-align: center;
+    h1{
+        font-weight: 700;
+    }
+    margin-bottom: 15px;
+}
+
+.empty-state{
+    text-align: center;
+    @include font-size(2);
+}

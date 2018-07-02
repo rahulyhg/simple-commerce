@@ -40,12 +40,12 @@ class Menu extends Component {
                         <div className="badge">{this.props.cart.length}</div>
                         <i className="icon-basket"></i>
                     </Link>
-                    <a href="#" className="Toggler" onClick={this.toggleMenu}> <i className="icon-menu"></i> Menu</a>
+                    <a href="/" className="Toggler" onClick={this.toggleMenu}> <i className="icon-menu"></i> Menu</a>
                 </div>
 
                 { this.state.menuOpen && (<div className="menu-overlay">
-                    <a href="#" className="menuCloser" onClick={this.toggleMenu}> <i className="icon-close"></i> </a>
-                    <ul class="menu">
+                    <a href="/" className="menuCloser" onClick={this.toggleMenu}> <i className="icon-close"></i> </a>
+                    <ul className="menu">
                     {
                         menu.map(
                             menuItem => (<li key={menuItem.text}><Link to={menuItem.path} >{menuItem.text}</Link></li>)

@@ -1,0 +1,49 @@
+@import '../../../../scss/mixins/_all';
+.product-box{
+    margin-bottom: 30px;
+
+    &:hover .actions{
+        top: 50%;
+    }
+
+    .thumbnail{
+        position: relative;
+        margin-bottom: 0;
+        overflow: hidden;
+    }
+    .info > div{
+        margin-bottom: 10px;
+    }
+    .title{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .actions{
+        width: calc(100% - 8px);
+        position: absolute;
+        top: 150%;
+        left: 4px;
+        transform: translate(0, -50%);
+        transition: top .3s ease-in-out;
+
+        a{
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            width: 33.333%;
+            background: #fff;
+            color: #000;
+            @include font-size(2.5);
+
+            padding: 10px 0;
+
+            &:hover, &:focus, &:active{
+                text-decoration: none;
+                color: #fff;
+                background-color: #fdcb6e;
+            }
+        }
+    }
+}

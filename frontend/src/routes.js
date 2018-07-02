@@ -8,7 +8,7 @@ import LogIn from './Components/Pages/LogIn';
 
 export default (
     <Switch>
+        <Route path="/login" component={LogIn} />
         <Route path="/" component={Home} />
-        <Route exact path="/login" component={LogIn} />
     </Switch>
 );

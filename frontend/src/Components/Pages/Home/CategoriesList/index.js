@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Category from '../Category';
 import Loader from '../../../Loader';
-import './CategoryList.css'
+import EmptyState from '../../../EmptyState';
 
 class CategoriesList extends Component {
 
@@ -12,14 +12,14 @@ class CategoriesList extends Component {
         if(typeof categories === 'undefined'){
             content = <Loader></Loader>;
         }else if(!categories.length){
-            content = <p>No Categories were added</p>;
+            content = <EmptyState>No Categories were added</EmptyState>;
         }else{
             content = this.props.categories.map(cat => <Category key={cat.id} id={cat.id} image={cat.image} name={cat.name} />)
         }
 
         return (
-            <div className="row CategoryList">
-                <div className="CategoryList-title col-xs-12">
+            <div className="row home-section">
+                <div className="home-section-title col-xs-12">
                     <h1>Categories</h1>
                 </div>
                 {content}
