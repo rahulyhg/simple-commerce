@@ -1,0 +1,79 @@
+@import '../../scss/mixins/_all';
+
+.site-header{
+    height: 100vh;
+    display: block;
+    background-image: url('../../assets/images/headerBg.png');
+    background-size: cover;
+
+    position: relative;
+
+    color: #fff;
+}
+
+.logo{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 80px;
+}
+
+.caption{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    text-align: center;
+
+    transform: translate(0 -50%);
+
+    h1{
+        font-weight: 700;
+    }
+
+    p{
+        font-size: 20px;
+    }
+}
+
+.mouse{
+    display: none;
+}
+
+@keyframes mouseFrames{
+    0% { margin-bottom: 0; }
+    50% { margin-bottom: 20px; }
+    100% {margin-bottom: 0; }
+}
+
+@media screen and (min-width: 767px){
+    .caption{
+        width: auto;
+        left: auto;
+        right : calc( ( 100% - 750px ) / 2 );
+    }
+}
+
+@media screen and (min-width: 992px){
+    .caption{
+        right : calc( ( 100% - 970px ) / 2 );
+    }
+
+    .mouse{
+        display: block;
+        width: 100%;
+        position: absolute;
+        bottom: 20px;
+        text-align: center;
+        animation-name: mouseFrames;
+        animation-iteration-count: infinite;
+        animation-duration: 1s;
+        i{
+            @include font-size(3);
+        }
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .caption{
+        right : calc( ( 100% - 1170px ) / 2 );
+    }
+}
