@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import LoveLink from '../../../LoveLink';
 import './Product.css';
 
 class Product extends Component {
@@ -10,12 +12,14 @@ class Product extends Component {
         return (
             <div className={className}>
                 <div className="thumbnail">
-                    <img src={product.image} alt={product.name} className="img-responsive"/>
+                    <Link to={"products/" + product.id}>
+                        <img src={product.image} alt={product.name} className="img-responsive"/>
+                    </Link>
 
                     <div className="actions">
-                        <a><i className="icon-basket"></i></a>
-                        <a><i className="icon-eye"></i></a>
-                        <a><i className="icon-heart"></i></a>
+                        <a><i className="icon-shopping-bag"></i></a>
+                        <Link to={"products/" + product.id}><i className="icon-eye"></i></Link>
+                        <LoveLink product={product} />
                     </div>
                 </div>
                 <section className="info">

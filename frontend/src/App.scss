@@ -1,5 +1,5 @@
 @import 'scss/mixins/_all';
-@import 'scss/_simple-line-icons';
+@import 'scss/_fonts';
 
 html{
     overflow-x: hidden;
@@ -67,4 +67,14 @@ html{
 .empty-state{
     text-align: center;
     @include font-size(2);
+}
+
+.favorite{
+    color: #000;
+    &.added_to_wishlist{
+        color: #d63031 !important;
+    }
+    &:not(.added_to_wishlist):hover{
+        color: #fff;
+    }
 }

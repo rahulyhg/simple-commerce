@@ -38,7 +38,7 @@ class Menu extends Component {
                 <div className="menu-wrapper col-xs-6">
                     <Link className="cart" to="/cart">
                         <div className="badge">{this.props.cart.length}</div>
-                        <i className="icon-basket"></i>
+                        <i className="icon-shopping-bag"></i>
                     </Link>
                     <a href="/" className="Toggler" onClick={this.toggleMenu}> <i className="icon-menu"></i> Menu</a>
                 </div>

@@ -40,6 +40,7 @@ class Home extends Component {
                 name: 'Awesome Ble Sneakers',
                 price: 150,
                 image: 'http://files.microservices.test/api/files/d1b723fe-7e46-11e8-bd2e-20c9d084fdb9?s=400',
+                added_to_wishlist: true,
                 brand: {
                     data: {
                         id: 1,
