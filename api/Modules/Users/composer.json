@@ -1,0 +1,30 @@
+{
+    "name": "missionx/users",
+    "description": "A Simple module made by MissionX to provide a skeleton code when building users curd with registeration and login logic",
+    "authors": [
+        {
+            "name": "Mohammed Manssour",
+            "email": "manssour.mohammed@gmail.com"
+        }
+    ],
+    "require": {
+        "spatie/laravel-fractal" : "^5.3",
+        "spatie/laravel-model-status": "^1.5",
+        "tymon/jwt-auth" : "1.0.0-rc.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Users\\Providers\\UsersServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Users\\": ""
+        }
+    }
+}
