@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import CartBagLink from '../Pages/Cart/CartBagLink';
 import './Menu.css';
 
 class Menu extends Component {
@@ -36,10 +37,7 @@ class Menu extends Component {
         return (
             <React.Fragment>
                 <div className="menu-wrapper col-xs-6">
-                    <Link className="cart" to="/cart">
-                        <div className="badge">{this.props.cart.length}</div>
-                        <i className="icon-shopping-bag"></i>
-                    </Link>
+                    <CartBagLink />
                     <a href="/" className="Toggler" onClick={this.toggleMenu}> <i className="icon-menu"></i> Menu</a>
                 </div>
 
@@ -62,7 +60,6 @@ class Menu extends Component {
 const mapStateToProps = (state) => {
     return {
         isSignedIn: state.isSignedIn,
-        cart: state.cart || []
     }
 }
 

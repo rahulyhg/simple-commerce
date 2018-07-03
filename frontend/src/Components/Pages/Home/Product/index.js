@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import LoveLink from '../../../LoveLink';
+import CartLink from '../../Cart/CartLink';
 import './Product.css';
 
 class Product extends Component {
@@ -17,7 +18,7 @@ class Product extends Component {
                     </Link>
 
                     <div className="actions">
-                        <a><i className="icon-shopping-bag"></i></a>
+                        <CartLink product={product} />
                         <Link to={"products/" + product.id}><i className="icon-eye"></i></Link>
                         <LoveLink product={product} />
                     </div>

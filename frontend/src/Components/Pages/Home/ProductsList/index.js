@@ -14,7 +14,7 @@ class ProductsList extends Component {
         }else if(!products.length){
             content = <EmptyState>No Products were added</EmptyState>
         }else{
-            content = products.map(product => <Product product={product} className="col-md-4 col-sm-6 col-xs-12" />)
+            content = products.map(product => <Product key={product.id} product={product} className="col-md-4 col-sm-6 col-xs-12" />)
         }
         return (
             <div className="row section">
