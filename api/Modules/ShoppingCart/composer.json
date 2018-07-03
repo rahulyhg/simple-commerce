@@ -1,0 +1,25 @@
+{
+    "name": "missionx/shoppingcart",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mohammed Manssour",
+            "email": "manssour.mohammed@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\ShoppingCart\\Providers\\ShoppingCartServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ShoppingCart\\": ""
+        }
+    }
+}
