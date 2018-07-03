@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { addProduct } from './actions';
+import { incrementProduct } from './actions';
 
 class CartLink extends Component {
 
@@ -16,7 +16,7 @@ class CartLink extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addToCart: (product) => dispatch(addProduct(product))
+    addToCart: (product) => dispatch(incrementProduct(product))
 })
 
 export default connect(undefined, mapDispatchToProps)(CartLink);

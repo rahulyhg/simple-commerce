@@ -42,7 +42,7 @@ class Menu extends Component {
                 </div>
 
                 { this.state.menuOpen && (<div className="menu-overlay">
-                    <a href="/" className="menuCloser" onClick={this.toggleMenu}> <i className="icon-close"></i> </a>
+                    <a href="/" className="menuCloser" onClick={this.toggleMenu}> <i className="icon-cross"></i> </a>
                     <ul className="menu">
                     {
                         menu.map(

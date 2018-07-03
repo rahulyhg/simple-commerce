@@ -1,4 +1,13 @@
-export const addProduct = (product) => ({
-    type: 'CART_ADD_PRODUCT',
+export const incrementProduct = (product) => ({
+    type: 'INCREMENT_PRODUCT',
     product
-})
+});
+
+export const decrementProduct = (product) => ({
+    type: 'DECREMENT_PRODUCT',
+    product
+});
+
+export const updateCart = () => ({
+    type: 'UPDATE_CART'
+});

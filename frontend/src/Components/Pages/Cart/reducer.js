@@ -1,30 +1,54 @@
 const CartReducer = (state = [], action) => {
-    if(action.type === 'CART_ADD_PRODUCT'){
-        return addProduct(state, action);
+
+    console.log(action.type);
+
+    if (action.type === 'INCREMENT_PRODUCT'){
+        let index = findProduct(state, action.product);
+        if (index === -1) {
+            return addProduct(state, action.product);
+        }
+        let item = state[index].qty;
+        return updateProductQty(state, index, ++item);
     }
+
+    if (action.type === 'DECREMENT_PRODUCT') {
+        let index = findProduct(state, action.product);
+        let item = state[index].qty;
+        return updateProductQty(state, index, --item);
+    }
+
+    if(action.type === 'UPDATE_CART'){
+        return state.filter((item) => item.qty > 0);
+    }
+
     return state;
 }
 
-const addProduct = (state, action) => {
-    let index = state.findIndex((item) => item.product.id === action.product.id);
-    if (index === -1) {
-        let item = {
-            qty: 1,
-            product: action.product
-        };
+const findProduct = (state, product) => {
+    return state.findIndex((item) => item.product.id === product.id);
+}
 
-        return [
-            ...state,
-            item
-        ];
-    }
+const addProduct = (state, product) => {
+    let item = {
+        qty: 1,
+        product: product
+    };
 
+    return [
+        ...state,
+        item
+    ];
+}
+
+const updateProductQty = (state, index, qty) =>{
     let item = state[index];
-    item.qty++;
+    if (parseInt(qty) > -1){
+        item.qty = qty
+    }
     return [
         ...state.slice(0, index),
         item,
-        ...state.slice(index+1)
+        ...state.slice(index + 1)
     ]
 }
 

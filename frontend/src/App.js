@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 
-import store, { history } from './store';
+import store ,{ persistor, history } from './store';
 
 import Header from './Components/Header';
 import Footer from './Components/Footer';
@@ -14,7 +15,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <ConnectedRouter history={history}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ConnectedRouter history={history}>
+
+
           <div className="site">
             <Header />
             <div className="content">
@@ -23,6 +27,7 @@ class App extends Component {
             <Footer />
           </div>
         </ConnectedRouter>
+        </PersistGate>
       </Provider>
     );
   }
