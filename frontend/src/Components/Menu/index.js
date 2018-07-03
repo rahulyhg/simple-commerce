@@ -27,7 +27,7 @@ class Menu extends Component {
             {text: 'Products', path: '/products'},
         ]
 
-        if(!this.props.isSignedIn){
+        if(!this.props.user.id){
             menu.push({ text: 'Sign in', path: '/login' });
             menu.push({ text: 'Register', path: '/register' });
         }else{
@@ -59,7 +59,7 @@ class Menu extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isSignedIn: state.isSignedIn,
+        user: state.User,
     }
 }
 

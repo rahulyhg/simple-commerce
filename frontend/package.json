@@ -9,6 +9,7 @@
     "query-string": "^6.1.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-progress-button": "^5.1.0",
     "react-rating": "^1.2.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
