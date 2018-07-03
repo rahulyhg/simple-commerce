@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-star-empty:before {
+  content: "\e9d7";
+}
+.icon-star-full:before {
+  content: "\e9d9";
+}
 .icon-heart2:before {
   content: "\e910";
 }
@@ -48,6 +54,9 @@
 .icon-image:before {
   content: "\e90c";
 }
+.icon-menu:before {
+  content: "\e914";
+}
 .icon-plus-circle:before {
   content: "\e906";
 }
@@ -59,6 +68,9 @@
 }
 .icon-shopping-bag:before {
   content: "\e912";
+}
+.icon-star:before {
+  content: "\e915";
 }
 .icon-trash-2:before {
   content: "\e908";

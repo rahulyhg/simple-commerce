@@ -41,6 +41,7 @@ class Home extends Component {
                 price: 150,
                 image: 'http://files.microservices.test/api/files/d1b723fe-7e46-11e8-bd2e-20c9d084fdb9?s=400',
                 added_to_wishlist: true,
+                rating: 5,
                 brand: {
                     data: {
                         id: 1,
@@ -53,6 +54,7 @@ class Home extends Component {
                 name: 'The Mountains Bicycle',
                 price: 1100,
                 image: 'http://files.microservices.test/api/files/ebad3ffc-7e44-11e8-bfaf-20c9d084fdb9?s=400',
+                rating: 3,
                 brand: {
                     data:{
                         id: 1,
@@ -65,6 +67,7 @@ class Home extends Component {
                 name: 'The ultra Light Bicycle',
                 price: 1500,
                 image: 'http://files.microservices.test/api/files/f9968ab0-7e44-11e8-81f2-20c9d084fdb9?s=400',
+                rating: 4,
                 brand: {
                     data: {
                         id: 1,
@@ -89,6 +92,7 @@ class Home extends Component {
                 name: 'The Cities suitable bicycle',
                 price: 1500,
                 image: 'http://files.microservices.test/api/files/e1656042-7e44-11e8-88f1-20c9d084fdb9?s=400',
+                rating: 4,
                 brand: {
                     data: {
                         id: 1,
@@ -101,6 +105,7 @@ class Home extends Component {
                 name: 'The Ultra Light boots',
                 price: 1000,
                 image: 'http://files.microservices.test/api/files/cd106d58-7e44-11e8-93dc-20c9d084fdb9?s=400',
+                rating: 3,
                 brand: {
                     data: {
                         id: 1,

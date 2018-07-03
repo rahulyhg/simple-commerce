@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import LoveLink from '../../../LoveLink';
 import CartLink from '../../Cart/CartLink';
+import Rating from 'react-rating';
 import './Product.css';
 
 class Product extends Component {
@@ -25,6 +26,18 @@ class Product extends Component {
                 </div>
                 <section className="info">
                     <h3 className="title">{product.name}</h3>
+                    <div className="rating">
+                        <Rating
+                            start={0}
+                            stop={5}
+                            step={1}
+                            initialRating={product.rating}
+                            readonly={true}
+                            placeholderSymbol={<i className="icon-star-empty"></i>}
+                            emptySymbol={<i className="icon-star-empty"></i>}
+                            fullSymbol={<i className="icon-star-full"></i>}
+                        />
+                    </div>
                     <div><strong>Price:</strong> <span className="price">{product.price}$</span></div>
                     <div><strong>Brand:</strong> <span className="price">{product.brand.data.name}</span></div>
                 </section>
