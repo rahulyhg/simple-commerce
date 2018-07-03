@@ -15,7 +15,7 @@ class Register extends Component {
                     <div className="col-md-12 home-section-title">
                         <h1>Register</h1>
                     </div>
-                    <RegisterForm />
+                    <RegisterForm user={{}} onRegisterClick={Promise.resolve({meta: {code: 1} } )} />
                 </section>
             </div>
         );

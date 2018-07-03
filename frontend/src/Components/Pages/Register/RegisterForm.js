@@ -10,12 +10,12 @@ class RegisterForm extends Component {
         super(props);
 
         this.state = {
-            first_name: '',
-            last_name: '',
-            birthday: '',
-            country: '',
-            city: '',
-            address: '',
+            first_name: props.user.first_name,
+            last_name: props.user.last_name,
+            birthday: props.user.birthday,
+            country: props.user.country,
+            city: props.user.city,
+            address: props.user.address,
             countries: [],
             cities: [],
 
@@ -102,9 +102,16 @@ class RegisterForm extends Component {
 
         this.setState({buttonState: 'loading'});
 
-        setTimeout(() => {
-            this.setState({buttonState: 'success'});
-        }, 2000);
+        this.props.onRegisterClick()
+            .then((response) => {
+                if (parseInt(response.meta.code) == 1){
+                    this.setState({buttonState: 'success'});
+                }else{
+                    this.setState({ buttonState: 'error' });
+                }
+            }).catch((err) => {
+                this.setState({ buttonState: 'error' });
+            })
     }
 
     render() {
@@ -124,7 +131,7 @@ class RegisterForm extends Component {
                 <div className="row">
                     <div className="form-group col-xs-12 col-sm-6">
                         <label htmlFor="birthday">Date of Birth</label>
-                        <DatePicker onChange={this.onBirthDayChanged} />
+                        <DatePicker value={this.state.birthday} onChange={this.onBirthDayChanged} />
                     </div>
                 </div>
 
@@ -146,7 +153,7 @@ class RegisterForm extends Component {
 
                 <div className="row">
                     <div className="col-xs-12 col-md-6 col-md-offset-3">
-                        <ProgressButton state={this.state.buttonState} onClick={this.register} >Register</ProgressButton>
+                        <ProgressButton state={this.state.buttonState} onClick={this.register} >Go</ProgressButton>
                     </div>
                 </div>
 

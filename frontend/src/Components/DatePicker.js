@@ -7,12 +7,18 @@ class DatePicker extends Component {
         super(props);
 
         this._18YearsAgo = this.get18YearsAgo()
-        console.log(this._18YearsAgo)
+
+        if (props.value){
+            this.date = new Date(props.value)
+        }else{
+            this.date = this._18YearsAgo;
+        }
+
 
         this.state = {
-            year: { value: this._18YearsAgo.getFullYear(), label: parseInt(this._18YearsAgo.getFullYear())},
-            month: { value: this._18YearsAgo.getMonth() + 1, label: this.getMonthLabel(this._18YearsAgo.getMonth())},
-            day: { value: this._18YearsAgo.getDate(), label: this._18YearsAgo.getDate()},
+            year: { value: this.date.getFullYear(), label: parseInt(this.date.getFullYear())},
+            month: { value: this.date.getMonth() + 1, label: this.getMonthLabel(this.date.getMonth())},
+            day: { value: this.date.getDate(), label: this.date.getDate()},
 
             years: this.getYears(this._18YearsAgo),
             months: this.getMonths(),
