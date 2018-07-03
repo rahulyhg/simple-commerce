@@ -1,0 +1,30 @@
+{
+    "name": "missionx/categories",
+    "description": "Categories CURD via api",
+    "authors": [
+        {
+            "name": "Mohammed Manssour",
+            "email": "manssour.mohammed@gmail.com"
+        }
+    ],
+    "require": {
+        "faustbrian/laravel-categories": "^5.0",
+        "spatie/laravel-fractal": "^5.3",
+        "plank/laravel-metable" : "^1.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Categories\\Providers\\CategoriesServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Categories\\": ""
+        }
+    }
+}
