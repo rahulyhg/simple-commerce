@@ -1,0 +1,25 @@
+{
+    "name": "missionx/comments",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mohammed Manssour",
+            "email": "manssour.mohammed@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Comments\\Providers\\CommentsServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Comments\\": ""
+        }
+    }
+}
