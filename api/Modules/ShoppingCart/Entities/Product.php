@@ -35,4 +35,9 @@ class Product extends Model
     {
         return $this->categories()->where('type', 'default');
     }
+
+    public function brands()
+    {
+        return $this->categories()->where('type', 'brand');
+    }
 }

@@ -53,19 +53,24 @@ class AdminProductsTest extends JwtTestCase
         $this->withoutExceptionHandling();
 
         $categories = $this->createCategories();
+        $brands = $this->createCategories('brand');
 
         $res = $this->json('post','api/admin/products',[
             'title' => 'Product Title',
             'description' => 'This is description',
             'price' => 40,
             'image' => 'uuidhere',
-            'categories' => $categories->pluck('id')->toArray()
+            'categories' => $categories->pluck('id')->toArray(),
+            'brands' => $brands->pluck('id')->toArray()
         ]);
 
         $res->assertStatus(200);
         $res->assertJson(['meta' => generate_meta('success')]);
         $res->assertJsonStructure([
-            'data' => ['id', 'title', 'price', 'qty', 'image', 'description']
+            'data' => ['id', 'title', 'price', 'qty', 'image', 'description',
+            'categories' => ['data' => ['*' => ['id', 'name', 'slug', 'image']]],
+            'brands' => ['data' => ['*' => ['id', 'name', 'slug', 'image']]]
+            ]
         ]);
 
         $this->assertDatabaseHas('products',[
@@ -82,19 +87,25 @@ class AdminProductsTest extends JwtTestCase
         $product = factory(Product::class)->create();
 
         $categories = $this->createCategories();
+        $brands = $this->createCategories('brand');
 
         $res = $this->json('put', "api/admin/products/{$product->id}",[
             'title' => 'Product Title',
             'description' => 'This is description',
             'price' => 40,
             'image' => 'uuidhere',
-            'categories' => $categories->pluck('id')->toArray()
+            'categories' => $categories->pluck('id')->toArray(),
+            'brands' => $brands->pluck('id')->toArray()
         ]);
 
         $res->assertStatus(200);
         $res->assertJson(['meta' => generate_meta('success')]);
         $res->assertJsonStructure([
-            'data' => ['id', 'title', 'price', 'qty', 'image', 'description']
+            'data' => [
+                'id', 'title', 'price', 'qty', 'image', 'description',
+                'categories' => [ 'data' => ['*' => ['id', 'name', 'slug', 'image'] ] ],
+                'brands' => [ 'data' => ['*' => ['id', 'name', 'slug', 'image'] ] ]
+            ]
         ]);
 
         $this->assertDatabaseHas('products', [
@@ -139,19 +150,23 @@ class AdminProductsTest extends JwtTestCase
                 'id', 'title', 'price', 'qty', 'image', 'description',
                 'categories' => ['data' => [
                     '*' => ['id', 'name', 'slug', 'image']
+                ]],
+                'brands' => ['data' => [
+                    '*' => ['id', 'name', 'slug', 'image']
                 ]]
             ],
             'meta' => ['code', 'message']
         ]);
     }
 
-    private function createCategories()
+    private function createCategories($type = 'default')
     {
         return collect(['name1', 'name2', 'name3'])
-            ->transform(function ($category) {
+            ->transform(function ($category) use($type) {
                 return Category::create([
                     'name' => $category,
-                    'image' => 'uuidhere'
+                    'image' => 'uuidhere',
+                    'type' => $type
                 ]);
             });
     }

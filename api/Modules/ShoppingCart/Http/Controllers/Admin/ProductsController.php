@@ -34,7 +34,8 @@ class ProductsController extends Controller
 
         try{
             $model = Product::create($request->validated());
-            $model->categories()->sync($request->categories);
+
+            $model->categories()->sync(array_merge($request->categories, $request->brands));
 
             DB::commit();
         }catch(\Exception $e){
@@ -46,6 +47,7 @@ class ProductsController extends Controller
             fractal()
                 ->item($model)
                 ->transformWith($productTransformer)
+                ->parseIncludes(['categories', 'brands'])
                 ->addMeta(generate_meta($model))
                 ->toArray(),
             200
@@ -54,14 +56,26 @@ class ProductsController extends Controller
 
     public function update(StoreProduct $request, Product $product ,ProductTransformer $productTransformer)
     {
-        $product->fill(
-            $request->validated()
-        )->save();
+        DB::beginTransaction();
+
+        try {
+            $product->fill(
+                $request->validated()
+            )->save();
+
+            $product->categories()->sync(array_merge($request->categories, $request->brands));
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['meta' => generate_meta('failure', $e->getMessage())], 200);
+        }
 
         return response()->json(
             fractal()
                 ->item($product)
                 ->transformWith($productTransformer)
+                ->parseIncludes(['categories', 'brands'])
                 ->addMeta(generate_meta($productTransformer))
                 ->toArray(),
             200
@@ -74,7 +88,7 @@ class ProductsController extends Controller
             fractal()
                 ->item($product)
                 ->transformWith($productTransformer)
-                ->parseIncludes(['categories'])
+                ->parseIncludes(['categories','brands'])
                 ->addMeta(generate_meta($product))
                 ->toArray(),
             200

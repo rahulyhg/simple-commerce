@@ -12,7 +12,7 @@ class ProductTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['categories'];
+    protected $availableIncludes = ['categories', 'brands'];
 
     /**
      * A Fractal transformer.
@@ -36,5 +36,11 @@ class ProductTransformer extends TransformerAbstract
         $categories = $model->dCategories;
 
         return $this->collection($categories, new CategoryTransformer);
+    }
+
+    public function includeBrands($model)
+    {
+        $brands = $model->brands;
+        return $this->collection($brands, new CategoryTransformer);
     }
 }
