@@ -4,6 +4,7 @@ namespace Modules\ShoppingCart\Tests;
 
 use App\User;
 use Modules\Users\Jwt\JwtTestCase;
+use Modules\Categories\Entities\Category;
 use Modules\ShoppingCart\Entities\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -49,11 +50,16 @@ class AdminProductsTest extends JwtTestCase
     /** @test */
     public function admin_can_create_product()
     {
+        $this->withoutExceptionHandling();
+
+        $categories = $this->createCategories();
+
         $res = $this->json('post','api/admin/products',[
             'title' => 'Product Title',
             'description' => 'This is description',
             'price' => 40,
-            'image' => 'uuidhere'
+            'image' => 'uuidhere',
+            'categories' => $categories->pluck('id')->toArray()
         ]);
 
         $res->assertStatus(200);
@@ -75,11 +81,14 @@ class AdminProductsTest extends JwtTestCase
     {
         $product = factory(Product::class)->create();
 
+        $categories = $this->createCategories();
+
         $res = $this->json('put', "api/admin/products/{$product->id}",[
             'title' => 'Product Title',
             'description' => 'This is description',
             'price' => 40,
-            'image' => 'uuidhere'
+            'image' => 'uuidhere',
+            'categories' => $categories->pluck('id')->toArray()
         ]);
 
         $res->assertStatus(200);
@@ -110,5 +119,40 @@ class AdminProductsTest extends JwtTestCase
 
         $res->assertStatus(200);
         $res->assertJson(['meta' => generate_meta('success')]);
+    }
+
+    /** @test */
+    public function admin_can_see_the_product()
+    {
+        $product = factory(Product::class)->create();
+
+        $categories = $this->createCategories();
+
+        $product->categories()->sync($categories->pluck('id'));
+
+        $res = $this->json('get', "api/admin/products/{$product->id}");
+
+        $res->assertStatus(200);
+        $res->assertJson(['meta' => generate_meta('success')]);
+        $res->assertJsonStructure([
+            'data' => [
+                'id', 'title', 'price', 'qty', 'image', 'description',
+                'categories' => ['data' => [
+                    '*' => ['id', 'name', 'slug', 'image']
+                ]]
+            ],
+            'meta' => ['code', 'message']
+        ]);
+    }
+
+    private function createCategories()
+    {
+        return collect(['name1', 'name2', 'name3'])
+            ->transform(function ($category) {
+                return Category::create([
+                    'name' => $category,
+                    'image' => 'uuidhere'
+                ]);
+            });
     }
 }

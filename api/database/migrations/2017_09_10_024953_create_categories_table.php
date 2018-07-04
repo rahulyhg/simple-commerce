@@ -22,6 +22,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('image',50);
             $table->string('slug');
             $table->string('type')->default('default');
             NestedSet::columns($table);

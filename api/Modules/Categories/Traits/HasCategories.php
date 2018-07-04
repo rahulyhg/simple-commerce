@@ -21,10 +21,11 @@ trait HasCategories{
 	 * @param \BrianFaust\Categories\Models\Category|integer $category
 	 * @return void
 	 */
-	public function scopeWhereHasCategory($query, $category)
+	public function scopeWhereHasCategory($query, $category, $type = 'default')
 	{
 		return $query->whereHas('categories', function ($query) use ($category) {
 			return $query
+				->where('type', $type)
 				->where('id', $category)
 				->orWhereIn('id', Category::select('id')->whereDescendantOf($category));
 		});

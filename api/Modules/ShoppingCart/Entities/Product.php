@@ -4,11 +4,12 @@ namespace Modules\ShoppingCart\Entities;
 
 use Spatie\BinaryUuid\HasBinaryUuid;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Categories\Traits\HasCategories;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasCategories;
 
     protected $fillable = [
         'title', 'price', 'image', 'description'
@@ -25,5 +26,13 @@ class Product extends Model
     public function getImageUrlAttribute()
     {
         return 'http://files.microservices.test/api/files/'.$this->image.'?s=400';
+    }
+
+    /*----------------------------------------------------
+    * Relationships
+    --------------------------------------------------- */
+    public function dCategories()
+    {
+        return $this->categories()->where('type', 'default');
     }
 }

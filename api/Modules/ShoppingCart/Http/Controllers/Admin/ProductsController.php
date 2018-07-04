@@ -9,6 +9,7 @@ use Modules\ShoppingCart\Entities\Product;
 use Modules\ShoppingCart\Http\Requests\StoreProduct;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Modules\ShoppingCart\Transformers\ProductTransformer;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -29,9 +30,17 @@ class ProductsController extends Controller
 
     public function store(StoreProduct $request, ProductTransformer $productTransformer)
     {
-        $model = Product::create(
-            $request->validated()
-        );
+        DB::beginTransaction();
+
+        try{
+            $model = Product::create($request->validated());
+            $model->categories()->sync($request->categories);
+
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return response()->json(['meta' => generate_meta('failure', $e->getMessage())], 200);
+        }
 
         return response()->json(
             fractal()
@@ -54,6 +63,19 @@ class ProductsController extends Controller
                 ->item($product)
                 ->transformWith($productTransformer)
                 ->addMeta(generate_meta($productTransformer))
+                ->toArray(),
+            200
+        );
+    }
+
+    public function show(Product $product, ProductTransformer $productTransformer)
+    {
+        return response()->json(
+            fractal()
+                ->item($product)
+                ->transformWith($productTransformer)
+                ->parseIncludes(['categories'])
+                ->addMeta(generate_meta($product))
                 ->toArray(),
             200
         );

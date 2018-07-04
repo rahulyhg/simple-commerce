@@ -10,6 +10,14 @@ use BrianFaust\Categories\Models\Category as BaseCategory;
 class Category extends BaseCategory
 {
 	/*----------------------------------------------------
+	* Attributes
+	--------------------------------------------------- */
+	public function getImageUrlAttribute()
+	{
+		return 'http://files.microservices.test/api/files/'.$this->image;
+	}
+
+	/*----------------------------------------------------
 	* Methods
 	--------------------------------------------------- */
 	/**

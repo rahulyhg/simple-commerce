@@ -35,8 +35,9 @@ class CategoriesTest extends JwtTestCase
 		for ($i=0; $i < 20; $i++) {
 			$category = Category::create([
 				'name' => 'Parent number'.$i,
+				'image' => 'uuidhere',
 				'children' => [
-					['name' => 'Children number'. $i]
+					['name' => 'Children number'. $i, 'image' => 'uuidhere']
 				]
 			]);
 
@@ -49,7 +50,7 @@ class CategoriesTest extends JwtTestCase
 		$res->assertJson(['meta' => generate_meta('success')]);
 		$res->assertJsonStructure([
 			'data' => [
-				'*' => ['id', 'name', 'slug']
+				'*' => ['id', 'name', 'slug', 'image']
 			],
 			'meta' => ['code', 'message']
 		]);
@@ -69,10 +70,12 @@ class CategoriesTest extends JwtTestCase
 		$this->withoutExceptionHandling();
 
 		$parent = Category::create([
-			'name' => 'Some'
+			'name' => 'Some',
+			'image' => 'uuidhere'
 		]);
 		$res = $this->json('post', 'api/admin/categories',[
 			'name' => 'New Category',
+			'image' => 'uuidhere',
 			'parent_id' => $parent->id
 		]);
 
@@ -82,6 +85,7 @@ class CategoriesTest extends JwtTestCase
 
 		$this->assertDatabaseHas('categories', [
 			'name' => 'New Category',
+			'image' => 'uuidhere',
 			'type' => 'default'
 		]);
 
@@ -95,18 +99,21 @@ class CategoriesTest extends JwtTestCase
 	{
 		$this->withoutExceptionHandling();
 		$category = Category::create([
-			'name' => 'Category Name Old'
+			'name' => 'Category Name Old',
+			'image' => 'uuidhere',
 		]);
 
 		$res = $this->json('put', "api/admin/categories/{$category->id}",[
-			'name' => 'Category Name New'
+			'name' => 'Category Name New',
+			'image' => 'uuidhere'
 		]);
 
 		$res->assertStatus(200);
 		$res->assertJson(['meta' => generate_meta('success')]);
 
 		$this->assertDatabaseHas('categories', [
-			'name' => 'Category Name New'
+			'name' => 'Category Name New',
+			'image' => 'uuidhere'
 		]);
 	}
 
@@ -114,7 +121,8 @@ class CategoriesTest extends JwtTestCase
 	public function can_delete_category()
 	{
 		$category = Category::create([
-			'name' => 'Category Name'
+			'name' => 'Category Name',
+			'image' => 'uuidhere',
 		]);
 
 		$res = $this->json('delete', "api/admin/categories/{$category->id}");

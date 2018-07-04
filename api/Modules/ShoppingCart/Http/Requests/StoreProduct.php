@@ -17,7 +17,9 @@ class StoreProduct extends FormRequest
             'title' => 'bail|required',
             'price' => 'bail|required',
             'description' => 'bail|required',
-            'image' => 'required'
+            'image' => 'required',
+            'categories' => 'required',
+            'categories.*' => 'exists:categories,id'
         ];
     }
 
