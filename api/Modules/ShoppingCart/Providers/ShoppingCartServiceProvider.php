@@ -35,6 +35,7 @@ class ShoppingCartServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(CommentableServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
     }
 

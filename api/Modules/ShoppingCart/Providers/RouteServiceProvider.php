@@ -4,6 +4,7 @@ namespace Modules\ShoppingCart\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Comments\Http\Controllers\CommentsController;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -50,5 +51,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(module_path('ShoppingCart') . '/Routes/api.php');
+
+        if (app('commentable')) {
+            Route::prefix('api')
+                ->middleware(['api', 'auth:api'])
+                ->group(function(){
+                    Route::apiResource('products/{product}/comments', CommentsController::class);
+            });
+        }
     }
 }

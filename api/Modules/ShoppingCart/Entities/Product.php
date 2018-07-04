@@ -4,12 +4,13 @@ namespace Modules\ShoppingCart\Entities;
 
 use Spatie\BinaryUuid\HasBinaryUuid;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Comments\Traits\HasComments;
 use Modules\Categories\Traits\HasCategories;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use SoftDeletes, HasCategories;
+    use SoftDeletes, HasCategories, HasComments;
 
     protected $fillable = [
         'title', 'price', 'image', 'description'

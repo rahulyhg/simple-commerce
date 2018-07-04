@@ -1,0 +1,18 @@
+<?php
+
+namespace Modules\Comments\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class DeleteComment extends StoreComment
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [];
+    }
+}

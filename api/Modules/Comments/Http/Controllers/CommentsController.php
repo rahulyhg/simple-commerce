@@ -2,71 +2,109 @@
 
 namespace Modules\Comments\Http\Controllers;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Route;
+use Modules\Comments\Entities\Comment;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Comments\Http\Requests\StoreComment;
+use Modules\Comments\Http\Requests\DeleteComment;
+use Modules\Comments\Transformers\CommentTransformer;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        return view('comments::index');
-    }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * Model
+     *
+     * @var Model
      */
-    public function create()
-    {
-        return view('comments::create');
+    protected $model;
+
+    public function __construct() {
+
+        $this->middleware(function($request, $next){
+            $uri = Route::current()->uri();
+            $uri = Str::startsWith($uri, 'api') ? substr($uri, 4) : $uri;
+            $uri = Str::endsWith($uri, '/{comment}') ? substr($uri, 0, strpos($uri,'/{comment}')) : $uri;
+
+
+            $this->model = app('commentable')->get(
+                $request,
+                $uri
+            );
+
+            if( !$this->model ){
+                return response()->json(['meta' => generate_meta('failure','NOT FOUND')], 404);
+            }
+
+            return $next($request);
+        });
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
+
+    public function index(CommentTransformer $commentTransformer)
     {
+        $models = $this->model->comments()->withCount('replies')->paginate(10);
+
+        return response()->json(
+            fractal()
+                ->collection($models)
+                ->transformWith($commentTransformer)
+                ->paginateWith(new IlluminatePaginatorAdapter($models))
+                ->addMeta(generate_meta($models))
+                ->toArray(),
+            200
+        );
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
+    public function store(StoreComment $request, CommentTransformer $commentTransformer)
     {
-        return view('comments::show');
+        $model = $this->model->comments()->save(
+            new Comment(
+                array_add($request->validated(), 'user_id', auth()->user()->id)
+            )
+        );
+
+        return response()->json(
+            fractal()
+                ->item($model)
+                ->transformWith($commentTransformer)
+                ->addMeta(generate_meta($model))
+                ->toArray(),
+            200
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
+    public function update(StoreComment $request, CommentTransformer $commentTransformer)
     {
-        return view('comments::edit');
+        $model = $request->comment;
+
+        $model->fill(
+            array_add($request->validated(), 'user_id', auth()->user()->id)
+        )->save();
+
+        return response()->json(
+            fractal()
+                ->item($model)
+                ->transformWith($commentTransformer)
+                ->addMeta(generate_meta($model))
+                ->toArray(),
+            200
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
+    public function destroy(DeleteComment $request)
     {
-    }
+        $model = $request->comment;
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        $model->replies()->delete();
+        $model->delete();
+
+        return response()->json(['meta' => generate_meta('success')], 200);
     }
 }
