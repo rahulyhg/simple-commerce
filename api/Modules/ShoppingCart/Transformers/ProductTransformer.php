@@ -4,6 +4,7 @@ namespace Modules\ShoppingCart\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use Modules\Categories\Transformers\CategoryTransformer;
+use Modules\Comments\Transformers\CommentTransformer;
 
 class ProductTransformer extends TransformerAbstract
 {
@@ -12,7 +13,7 @@ class ProductTransformer extends TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = ['categories', 'brands'];
+    protected $availableIncludes = ['categories', 'brands', 'comments'];
 
     /**
      * A Fractal transformer.
@@ -42,5 +43,11 @@ class ProductTransformer extends TransformerAbstract
     {
         $brands = $model->brands;
         return $this->collection($brands, new CategoryTransformer);
+    }
+
+    public function includeComments($model){
+        $comments = $model->comments;
+
+        return $this->collection($comments, new CommentTransformer);
     }
 }

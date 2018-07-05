@@ -153,7 +153,8 @@ class AdminProductsTest extends JwtTestCase
                 ]],
                 'brands' => ['data' => [
                     '*' => ['id', 'name', 'slug', 'image']
-                ]]
+                ]],
+                'comments'
             ],
             'meta' => ['code', 'message']
         ]);

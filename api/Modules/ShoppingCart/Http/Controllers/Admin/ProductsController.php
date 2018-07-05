@@ -10,6 +10,7 @@ use Modules\ShoppingCart\Http\Requests\StoreProduct;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use Modules\ShoppingCart\Transformers\ProductTransformer;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ProductsController extends Controller
 {
@@ -47,7 +48,7 @@ class ProductsController extends Controller
             fractal()
                 ->item($model)
                 ->transformWith($productTransformer)
-                ->parseIncludes(['categories', 'brands'])
+                ->parseIncludes(['categories', 'brands', 'comments'])
                 ->addMeta(generate_meta($model))
                 ->toArray(),
             200
@@ -75,20 +76,26 @@ class ProductsController extends Controller
             fractal()
                 ->item($product)
                 ->transformWith($productTransformer)
-                ->parseIncludes(['categories', 'brands'])
+                ->parseIncludes(['categories', 'brands', 'comments'])
                 ->addMeta(generate_meta($productTransformer))
                 ->toArray(),
             200
         );
     }
 
-    public function show(Product $product, ProductTransformer $productTransformer)
+    public function show(Request $request, ProductTransformer $productTransformer)
     {
+        $product = Product::with('dCategories','brands','comments')->find($request->product);
+
+        if(!$product){
+            throw new ModelNotFoundException();
+        }
+
         return response()->json(
             fractal()
                 ->item($product)
                 ->transformWith($productTransformer)
-                ->parseIncludes(['categories','brands'])
+                ->parseIncludes(['categories', 'brands', 'comments'])
                 ->addMeta(generate_meta($product))
                 ->toArray(),
             200
