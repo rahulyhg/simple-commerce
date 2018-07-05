@@ -28,7 +28,8 @@ class ProductTransformer extends TransformerAbstract
             'price' => $model->price,
             'description' => $model->description,
             'image' => $model->image_url,
-            'qty' => $model->qty
+            'qty' => $model->qty,
+            'rating' => $model->rating
         ];
     }
 

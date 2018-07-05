@@ -67,7 +67,7 @@ class AdminProductsTest extends JwtTestCase
         $res->assertStatus(200);
         $res->assertJson(['meta' => generate_meta('success')]);
         $res->assertJsonStructure([
-            'data' => ['id', 'title', 'price', 'qty', 'image', 'description',
+            'data' => ['id', 'title', 'price', 'qty', 'image', 'description', 'rating',
             'categories' => ['data' => ['*' => ['id', 'name', 'slug', 'image']]],
             'brands' => ['data' => ['*' => ['id', 'name', 'slug', 'image']]]
             ]

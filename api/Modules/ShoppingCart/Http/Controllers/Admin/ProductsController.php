@@ -16,7 +16,7 @@ class ProductsController extends Controller
 {
     public function index(ProductTransformer $productTransformer)
     {
-        $models = Product::paginate(20);
+        $models = Product::withRating()->paginate(20);
 
         return response()->json(
             fractal()
@@ -85,7 +85,7 @@ class ProductsController extends Controller
 
     public function show(Request $request, ProductTransformer $productTransformer)
     {
-        $product = Product::with('dCategories','brands','comments')->find($request->product);
+        $product = Product::with('dCategories','brands','comments')->withRating()->find($request->product);
 
         if(!$product){
             throw new ModelNotFoundException();
