@@ -9,10 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Comments\Traits\HasComments;
 use Modules\Categories\Traits\HasCategories;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\ShoppingCart\Traits\HasQuantities;
 
 class Product extends Model
 {
-    use SoftDeletes, HasCategories, HasComments;
+    use SoftDeletes,
+        HasComments,
+        HasCategories,
+        HasQuantities;
 
     protected $fillable = [
         'title', 'price', 'image', 'description'
@@ -21,11 +25,6 @@ class Product extends Model
     /*----------------------------------------------------
     * Attribute
     --------------------------------------------------- */
-    public function getQtyAttribute()
-    {
-        return 20;
-    }
-
     public function getImageUrlAttribute()
     {
         return 'http://files.microservices.test/api/files/'.$this->image.'?s=400';

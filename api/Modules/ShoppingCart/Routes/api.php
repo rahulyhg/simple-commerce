@@ -7,6 +7,11 @@ Route::middleware('auth:api')->group(function(){
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware(['auth:api', ApiAdmin::class])->group(function(){
+
+    Route::resource('products/{product}/quantities','QuantitiesController',[
+        'only' => ['index', 'store']
+    ]);
+
     Route::apiResource('products', 'ProductsController');
     Route::apiResource('brands', 'BrandsController');
 });

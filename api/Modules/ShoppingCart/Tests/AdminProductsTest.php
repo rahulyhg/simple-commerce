@@ -8,6 +8,7 @@ use Modules\Categories\Entities\Category;
 use Modules\ShoppingCart\Entities\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Modules\ShoppingCart\Entities\Quantity;
 
 class AdminProductsTest extends JwtTestCase
 {
@@ -30,6 +31,12 @@ class AdminProductsTest extends JwtTestCase
     {
         $this->withoutExceptionHandling();
         $products = factory(Product::class,30)->create();
+
+        $products->each(function($product){
+            factory(Quantity::class, 4)->create([
+                'product_id' => $product->id
+            ]);
+        });
 
         $res = $this->json('get','api/admin/products');
 
@@ -135,11 +142,16 @@ class AdminProductsTest extends JwtTestCase
     /** @test */
     public function admin_can_see_the_product()
     {
+        $this->withoutExceptionHandling();
         $product = factory(Product::class)->create();
 
         $categories = $this->createCategories();
 
         $product->categories()->sync($categories->pluck('id'));
+
+        factory(Quantity::class,4)->create([
+            'product_id' => $product->id
+        ]);
 
         $res = $this->json('get', "api/admin/products/{$product->id}");
 
