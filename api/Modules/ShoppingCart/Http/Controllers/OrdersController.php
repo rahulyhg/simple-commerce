@@ -7,7 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\ShoppingCart\Entities\Order;
+use Modules\ShoppingCart\Events\OrderCreated;
 use Modules\ShoppingCart\Http\Requests\StoreOrder;
+use Modules\ShoppingCart\Events\OrderStatusUpdated;
 use Modules\ShoppingCart\Http\Requests\UpdateOrder;
 use Modules\ShoppingCart\Transformers\OrderTransformer;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
@@ -55,6 +57,8 @@ class OrdersController extends Controller
 
             $order->products()->sync($request->products);
 
+            event(new OrderCreated($order));
+
             DB::commit();
         }catch(\Exception $e){
             DB::rollback();
@@ -100,6 +104,8 @@ class OrdersController extends Controller
         }
 
         $order->setStatus($request->status);
+
+        event(new OrderStatusUpdated($order, $request->status));
 
         return response()->json(['meta' => generate_meta('success')], 200);
     }

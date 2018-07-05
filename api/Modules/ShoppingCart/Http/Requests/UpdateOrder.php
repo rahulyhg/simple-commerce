@@ -14,7 +14,7 @@ class UpdateOrder extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|in:approved,canceled'
+            'status' => 'required|in:approved,canceled,finished'
         ];
     }
 

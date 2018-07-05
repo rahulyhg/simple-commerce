@@ -5,9 +5,12 @@ namespace Modules\ShoppingCart\Tests;
 use App\User;
 use Tests\TestCase;
 use Modules\Users\Jwt\JwtTestCase;
+use Illuminate\Support\Facades\Event;
 use Modules\ShoppingCart\Entities\Order;
 use Modules\ShoppingCart\Entities\Product;
+use Modules\ShoppingCart\Events\OrderCreated;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Modules\ShoppingCart\Events\OrderStatusUpdated;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class OrdersTest extends JwtTestCase
@@ -52,6 +55,7 @@ class OrdersTest extends JwtTestCase
     /** @test */
     public function can_create_order()
     {
+        Event::fake();
         $this->withoutExceptionHandling();
         $products = factory(Product::class, 4)->create()->transform(function($product, $index){
             return [
@@ -71,6 +75,8 @@ class OrdersTest extends JwtTestCase
         $res->assertJsonStructure([
             'data' => ['id', 'status', 'created_at', 'user', 'products']
         ]);
+
+        Event::assertDispatched(OrderCreated::class);
     }
 
     /** @test */
@@ -103,6 +109,8 @@ class OrdersTest extends JwtTestCase
     /** @test */
     public function can_cancel_product()
     {
+        Event::fake();
+
         $this->withoutExceptionHandling();
         $user = factory(User::class)->create();
         $order = factory(Order::class)->create([
@@ -118,5 +126,9 @@ class OrdersTest extends JwtTestCase
         $res->assertJson(['meta' => generate_meta('success')]);
         $order = Order::find($order->id);
         $this->assertEquals('canceled', $order->status);
+
+        Event::assertDispatched(OrderStatusUpdated::class,function($e) use($order){
+            return $e->order->id == $order->id && $e->status == 'canceled';
+        });
     }
 }
