@@ -36,6 +36,7 @@ class TreasuryPapersServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(AccountableServiceProvider::class);
     }
 
     /**

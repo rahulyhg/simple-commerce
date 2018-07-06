@@ -7,10 +7,12 @@ use Spatie\ModelStatus\Status;
 use Modules\Users\Traits\Approvable;
 use Illuminate\Database\Eloquent\Model;
 use Modules\ShoppingCart\Entities\Product;
+use Modules\TreasuryPapers\Traits\Accountable;
 
 class Order extends Model
 {
-    use Approvable;
+    use Approvable,
+        Accountable;
 
     protected $fillable = ['user_id'];
 

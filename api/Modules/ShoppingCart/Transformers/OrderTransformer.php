@@ -3,6 +3,7 @@
 namespace Modules\ShoppingCart\Transformers;
 
 use League\Fractal\TransformerAbstract;
+use Modules\ShoppingCart\Entities\Order;
 use Modules\Users\Transformers\UserTransformer;
 use Modules\ShoppingCart\Transformers\ProductTransformer;
 
@@ -30,6 +31,7 @@ class OrderTransformer extends TransformerAbstract
     public function transform($model)
     {
         return [
+            'model_type' => Order::class,
             'id' => $model->id,
             'status' => $model->latest_status,
             'created_at' => $model->created_at->format('Y-m-d H:i'),

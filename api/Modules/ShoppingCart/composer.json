@@ -7,6 +7,9 @@
             "email": "manssour.mohammed@gmail.com"
         }
     ],
+    "require": {
+        "spatie/laravel-fractal": "^5.3"
+    },
     "extra": {
         "laravel": {
             "providers": [

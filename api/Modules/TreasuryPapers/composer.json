@@ -1,19 +1,22 @@
 {
-    "name": "nwidart/treasurypapers",
+    "name": "missionx/treasurypapers",
     "description": "",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "Mohammed Manssour",
+            "email": "manssour.mohammed@gmail.com"
         }
     ],
+    "require": {
+        "spatie/laravel-fractal": "^5.3"
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "Modules\\TreasuryPapers\\Providers\\TreasuryPapersServiceProvider"
             ],
             "aliases": {
-                
+
             }
         }
     },

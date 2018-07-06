@@ -10,11 +10,13 @@ use Modules\Comments\Traits\HasComments;
 use Modules\Categories\Traits\HasCategories;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\ShoppingCart\Traits\HasQuantities;
+use Modules\TreasuryPapers\Traits\Accountable;
 
 class Product extends Model
 {
     use SoftDeletes,
         HasComments,
+        Accountable,
         HasCategories,
         HasQuantities;
 

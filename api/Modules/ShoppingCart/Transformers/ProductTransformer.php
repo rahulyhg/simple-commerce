@@ -3,8 +3,9 @@
 namespace Modules\ShoppingCart\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use Modules\Categories\Transformers\CategoryTransformer;
+use Modules\ShoppingCart\Entities\Product;
 use Modules\Comments\Transformers\CommentTransformer;
+use Modules\Categories\Transformers\CategoryTransformer;
 
 class ProductTransformer extends TransformerAbstract
 {
@@ -23,6 +24,7 @@ class ProductTransformer extends TransformerAbstract
     public function transform($model)
     {
         return [
+            'model_type' => Product::class,
             'id' => $model->id,
             'title' => $model->title,
             'price' => $model->price,
