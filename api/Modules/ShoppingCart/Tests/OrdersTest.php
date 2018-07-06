@@ -131,4 +131,76 @@ class OrdersTest extends JwtTestCase
             return $e->order->id == $order->id && $e->status == 'canceled';
         });
     }
+
+    /** @test */
+    public function product_qty_get_decremented_after_order_is_approved()
+    {
+        $this->withoutExceptionHandling();
+        $user = factory(User::class)->create();
+
+        $products = factory(Product::class,4)->create()->each->incrementQty(5);
+
+        $products = $products->transform(function($product){
+            return [
+                'product_id' => $product->id,
+                'qty' => 2
+            ];
+        });
+
+        $order = factory(Order::class)->create([
+            'user_id' => $user->id
+        ]);
+        $order->activate();
+
+        $order->products()->sync($products->toArray());
+
+
+        $res = $this->actingAs($this->admin)->json('put', "api/orders/{$order->id}", [
+            'status' => 'approved'
+        ]);
+
+        Order::first()->products->each(function($product){
+            $this->assertEquals(3, $product->qty);
+        });
+    }
+
+    /** @test */
+    public function TreasuryPaper_will_be_created_after_order_is_approved()
+    {
+        $this->withoutExceptionHandling();
+
+        //TreasuryPapers Module is not enabled
+        if(!app('accountable')){
+            info("TreasuryPapers Module is not enabled");
+            return $this->assertTrue(true);
+        }
+
+        $user = factory(User::class)->create();
+
+        $products = factory(Product::class, 4)->create(['price' => 100])->each->incrementQty(5);
+        $products = $products->transform(function ($product) {
+            return [
+                'product_id' => $product->id,
+                'qty' => 2
+            ];
+        });
+
+        $order = factory(Order::class)->create([
+            'user_id' => $user->id
+        ])->activate();
+
+        $order->products()->sync($products->toArray());
+
+        $res = $this->actingAs($this->admin)->json('put', "api/orders/{$order->id}", [
+            'status' => 'approved'
+        ]);
+
+        $paper = \Modules\TreasuryPapers\Entities\TreasuryPaper::where('model_id', $order->id)
+                        ->where('model_type', Order::class)
+                        ->where('type', 'in')
+                        ->where('value', 800)
+                        ->first();
+
+        $this->assertNotNull($paper);
+    }
 }

@@ -66,4 +66,29 @@ trait HasQuantities{
             'out'
         );
     }
+
+    /*----------------------------------------------------
+    * Methods
+    --------------------------------------------------- */
+    public function decrementQty($qty)
+    {
+        $this->quantities()->save(
+            new Quantity([
+                'type' => 'out',
+                'value' => $qty
+            ])
+        );
+
+        return $this;
+    }
+
+    public function incrementQty($qty){
+        $this->quantities()->save(
+            new Quantity([
+                'type' => 'in',
+                'value' => $qty
+            ])
+        );
+        return $this;
+    }
 }

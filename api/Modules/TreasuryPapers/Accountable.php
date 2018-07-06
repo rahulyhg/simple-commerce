@@ -41,6 +41,11 @@ class Accountable{
         return $this->transformers->get($modelType);
     }
 
+    /**
+     * get list of registered models
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getModels(){
         return $this->transformers->keys();
     }

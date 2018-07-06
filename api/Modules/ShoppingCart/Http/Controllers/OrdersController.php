@@ -100,7 +100,11 @@ class OrdersController extends Controller
     public function update(Order $order, UpdateOrder $request)
     {
         if (!auth()->user()->can('see', $order)) {
-            return response()->json(['meta' => generate_meta('failure', 'FORBIDDEN')], 200);
+            return response()->json(['meta' => generate_meta('failure', 'FORBIDDEN')], 403);
+        }
+
+        if($order->status == 'approved'){
+            return response()->json(['meta' => generate_meta('failure', 'CAN NOT UPDATE APPROVED ORDER STATUS')], 400);
         }
 
         $order->setStatus($request->status);
