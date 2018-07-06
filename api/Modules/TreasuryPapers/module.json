@@ -1,0 +1,16 @@
+{
+    "name": "TreasuryPapers",
+    "alias": "treasurypapers",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\TreasuryPapers\\Providers\\TreasuryPapersServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": []
+}
