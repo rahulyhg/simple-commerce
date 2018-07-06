@@ -1,0 +1,41 @@
+@import '../../scss/mixins/_all';
+
+.side-menu-wrapper{
+    position: fixed;
+    top: 50px;
+    left: 0;
+
+    width: 60px;
+    height: calc(100% - 50px);
+
+
+    @include background-gradient(#f77358, #fd5372);
+}
+
+.menu{
+    ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        width: 100%;
+
+        li{
+            a{
+                padding: 20px 0;
+                display: block;
+                text-align: center;
+                @include font-size(2.5);
+                color: #fff;
+                &:visited, &:focus, &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+.logout{
+    position: absolute;
+    bottom: 10px;
+}
