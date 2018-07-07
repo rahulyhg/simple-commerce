@@ -13,6 +13,7 @@ export default (
         <Route path="/products" component={Products.Index} />
 
         <Route path="/categories/create" component={Categories.Create} />
+        <Route path="/categories/:id/edit" component={Categories.Edit} />
         <Route path="/categories" component={Categories.Index} />
         <Route component={Categories.Create} />
         {/* <Route path="/" component={Home} /> */}

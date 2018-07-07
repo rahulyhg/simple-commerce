@@ -44,7 +44,7 @@ class CategoryForm extends Component {
     }
 
     async updateCategory(){
-        let category = await this.saveCategory(`admin/categories/${this.props.category.id}`);
+        let category = await this.saveCategory(`admin/categories/${this.props.category.id}`,'put');
         if(category !== false){
             this.props.updateCategory(category);
             this.setState({ 'loadingState': 'success' });
@@ -52,7 +52,7 @@ class CategoryForm extends Component {
     }
 
     async createCategory(){
-        let category = await this.saveCategory(`admin/categories`);
+        let category = await this.saveCategory(`admin/categories`,'post');
         console.log({category})
         if (category !== false) {
             this.props.addCategory(category);
@@ -60,10 +60,10 @@ class CategoryForm extends Component {
         }
     }
 
-    async saveCategory(url){
+    async saveCategory(url, method){
         let {response, status} = await Api.jsonAuth(
                                 this.props.user.token,
-                                'post',
+                                method,
                                 url,
                                 {
                                     name: this.state.name,
@@ -90,7 +90,7 @@ class CategoryForm extends Component {
                 <div className="form-group">
                     <label htmlFor="file">Image</label>
                     <div className="row"></div>
-                    <MissionxFileUploader onUploadFinished={this.onUploadSuccess} />
+                    <MissionxFileUploader image={this.state.image} onUploadFinished={this.onUploadSuccess} />
                 </div>
 
                 <div className="pull-right">

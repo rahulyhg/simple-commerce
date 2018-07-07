@@ -30,6 +30,13 @@ class MissionxFileUploader extends Component {
         this.props.onUploadFinished(this.state.image);
     }
 
+    getImage(image){
+        if(image.substr(0,4).toLowerCase() === 'http'){
+            return image;
+        }
+        return `http://files.microservices.test/api/files/${image}`;
+    }
+
     render() {
         return (
             <div className="missionx-file-uploader">
@@ -46,7 +53,7 @@ class MissionxFileUploader extends Component {
 
                     {this.state.image &&
                     <div className="image-wrapper">
-                        <img src={`http://files.microservices.test/api/files/${this.state.image}`} className="img-responsive"/>
+                        <img src={this.getImage(this.state.image)} className="img-responsive"/>
                     </div>
                     }
                 </div>

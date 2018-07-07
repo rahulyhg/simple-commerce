@@ -12,3 +12,8 @@ export const addCategory = (category) => ({
     type: 'ADD_CATEGORY',
     category
 })
+
+export const removeCategory = (category) => ({
+    type: 'REMOVE_CATEGORY',
+    category
+})

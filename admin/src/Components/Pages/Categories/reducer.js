@@ -22,6 +22,14 @@ const Categories = (state = [], action) => {
         ];
     }
 
+    if(action.type === 'REMOVE_CATEGORY'){
+        let index = state.findIndex((item) => item.id === action.category.id);
+        return [
+            ...state.slice(0, index),
+            ...state.slice(index + 1)
+        ];
+    }
+
     return state;
 }
 
