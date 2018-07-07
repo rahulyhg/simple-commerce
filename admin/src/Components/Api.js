@@ -48,4 +48,21 @@ export default class Api {
         return Api.json(method, url, body, headers);
     }
 
+    static async upload(file, fileFieldName){
+        let formData = new FormData();
+        formData.append(fileFieldName, file);
+
+        let response = await fetch('http://files.microservices.test/api/files', {
+            method: 'post',
+            body: formData
+        });
+
+        let status = response.status;
+        if(status !== 200){
+            return false;
+        }
+        response = await response.json();
+        return response.data.uuid;
+    }
+
 }

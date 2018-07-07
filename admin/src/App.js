@@ -11,11 +11,11 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
+        <PersistGate loading={null} persistor={persistor}>
           <ConnectedRouter history={history}>
               <AdminPanel />
           </ConnectedRouter>
-        {/* </PersistGate> */}
+        </PersistGate>
       </Provider>
     );
   }

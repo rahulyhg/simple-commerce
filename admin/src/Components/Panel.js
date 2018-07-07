@@ -6,7 +6,7 @@ class Panel extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12">
-                        <div className="clearfix">
+                        <div className="m-t-25 clearfix">
                             <h3 className="page-title" style={{ display: 'inline-block' }}>{this.props.title}</h3>
                             <div className="pull-right">
                                 {this.props.actionBtns}

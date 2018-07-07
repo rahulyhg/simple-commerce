@@ -7,13 +7,14 @@ class Table extends Component {
         let classes = classNames({
             table: true,
             'table-hover' : props.hover,
-            'table-striped' : props.striped
+            'table-striped' : props.striped,
+            'table-bordered' : props.border
         });
         return (
             <table className={classes}>
                 <thead>
                     <tr>
-                        {props.headers.map(header=> <td key={header.id}>{header.text}</td>)}
+                        {props.headers.map(header=> <th key={header.id}>{header.text}</th>)}
                     </tr>
                 </thead>
                 <tbody>

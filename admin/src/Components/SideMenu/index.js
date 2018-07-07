@@ -15,11 +15,11 @@ class SideMenu extends Component {
         let menuItems = [];
 
         if (this.isUserSignedIn()) {
-            menuItems.push({ id: 1, icon: 'icon-package', to: 'products' });
-            menuItems.push({ id: 2, icon: 'icon-database', to: 'categories' });
-            menuItems.push({ id: 3, icon: 'icon-layers', to: 'brands' });
-            menuItems.push({ id: 4, icon: 'icon-box', to: 'orders' });
-            menuItems.push({ id: 5, icon: 'icon-dollar-sign', to: 'treasury-papers' });
+            menuItems.push({ id: 1, icon: 'icon-package', to: '/products' });
+            menuItems.push({ id: 2, icon: 'icon-database', to: '/categories' });
+            menuItems.push({ id: 3, icon: 'icon-layers', to: '/brands' });
+            menuItems.push({ id: 4, icon: 'icon-box', to: '/orders' });
+            menuItems.push({ id: 5, icon: 'icon-dollar-sign', to: '/treasury-papers' });
         } else {
             menuItems.push({ id: 6, icon: 'icon-user2', to: '/login' });
         }

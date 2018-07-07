@@ -196,4 +196,12 @@ body{
 
 .content-wrapper{
   padding-left: 60px;
+  padding-top: 50px;
+}
+
+.btn-primary{
+  @include background-horizontal(#f77358, #fd5372);
+  border: none;
+  @include border-radius(0);
+  @include font-size(1.5);
 }
