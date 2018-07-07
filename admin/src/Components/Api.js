@@ -6,9 +6,8 @@ export default class Api {
     }
 
     async call(method, url, body = {}, headers = {}) {
-        let requestHeaders = {"Content-type": "application/json"};
+        let requestHeaders = { "Content-type": "application/json", 'Accept': 'application/json'};
         requestHeaders = Object.assign({},requestHeaders, headers);
-        console.log({ requestHeaders});
 
         let requestConfig = {
             method,
@@ -45,8 +44,8 @@ export default class Api {
     }
 
     static jsonAuth(token, method, url, body = {}, headers = {}){
-        headers = Object.assign({}, headers, {token});
-        return Api.json(token, method, body, headers);
+        headers = Object.assign({}, headers, { Authorization: `Bearer ${token}`});
+        return Api.json(method, url, body, headers);
     }
 
 }

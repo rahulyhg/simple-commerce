@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Loader extends Component {
+class LoadingAnimation extends Component {
 
     render() {
         return (
@@ -11,4 +11,4 @@ class Loader extends Component {
     }
 }
 
-export default Loader;
+export default LoadingAnimation;
