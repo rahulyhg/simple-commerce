@@ -8,8 +8,9 @@ import Products from './Components/Pages/Products';
 export default (
     <Switch>
         <Route path="/login" component={Login} />
+        <Route path="/products/create" component={Products.Create} />
         <Route path="/products" component={Products.Index} />
-        <Route component={Products.Index} />
+        <Route component={Products.Create} />
         {/* <Route path="/" component={Home} /> */}
     </Switch>
 );

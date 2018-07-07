@@ -8,6 +8,8 @@ import Table from '../../Table';
 import EmptyRaw from '../../EmptyRaw';
 import ProductRow from './ProductRow';
 
+import Create from './Create';
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +46,7 @@ class Index extends Component {
 
     render() {
         if(!this.props.user.token){
-            return <Redirect to="login" />
+            return <Redirect to="/login" />
         }
 
         const products = this.state.products;
@@ -56,21 +58,15 @@ class Index extends Component {
         }
 
         return (
-            <div className="container">
-                <div className="row">
-                    <div className="col-xs-12">
-                        <Panel
-                            title="Products"
-                            actionBtns={<Link className=" m-t-15 btn btn-primary" to="/products/create">Create Product</Link>}>
-                            <Loader state={this.state.loaderState}>
-                                <Table headers={this.headers}>
-                                    {tableContent}
-                                </Table>
-                            </Loader>
-                        </Panel>
-                    </div>
-                </div>
-            </div>
+            <Panel
+                title="Products"
+                actionBtns={<Link className=" m-t-15 btn btn-primary" to="/products/create">Create Product</Link>}>
+                <Loader state={this.state.loaderState}>
+                    <Table headers={this.headers}>
+                        {tableContent}
+                    </Table>
+                </Loader>
+            </Panel>
         );
     }
 }
@@ -80,4 +76,7 @@ const mapStateToProps = (state) => ({
 })
 let reduxIndex = connect(mapStateToProps)(Index);
 
-export default {Index: reduxIndex};
+export default {
+    Index: reduxIndex,
+    Create
+};
