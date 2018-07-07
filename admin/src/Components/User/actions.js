@@ -1,6 +1,7 @@
-export const login = (user) => ({
+export const login = (info, token) => ({
     type: 'LOG_USER_IN',
-    user
+    info,
+    token
 });
 
 export const logout = () => ({

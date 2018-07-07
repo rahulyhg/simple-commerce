@@ -31,18 +31,18 @@ class SideMenu extends Component {
         var menuItems = this.generateMenuItems()
 
         return (
-            <side class="side-menu-wrapper">
+            <aside className="side-menu-wrapper">
                 <div className="menu">
                     <ul>
-                        {menuItems.map(item => <li key={item.id}><Link to={item.to}><i class={item.icon}></i></Link></li>)}
+                        {menuItems.map(item => <li key={item.id}><Link to={item.to}><i className={item.icon}></i></Link></li>)}
                     </ul>
                     { this.isUserSignedIn() &&
-                    <ul class="logout">
-                        <li><Link to='logout'><i class="icon-user-x"></i></Link></li>
-                    </ul>
+                        <ul className="logout">
+                            <li><Link to='logout'><i className="icon-user-x"></i></Link></li>
+                        </ul>
                     }
                 </div>
-            </side>
+            </aside>
         );
     }
 }

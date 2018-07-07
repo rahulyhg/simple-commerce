@@ -1,0 +1,17 @@
+@import '../../../scss/mixins/_all';
+
+.form-wrapper{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 30px;
+
+    background-color: #fff;
+    @include border-radius(10px);
+    @include css3-prefix('box-shadow','0px 0px 5px 5px #ccc');
+}
+
+@media screen and (min-width: 767px){
+    .form-wrapper{
+        margin-top: 150px;
+    }
+}
