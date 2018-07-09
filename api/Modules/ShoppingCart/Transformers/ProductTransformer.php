@@ -29,7 +29,8 @@ class ProductTransformer extends TransformerAbstract
             'title' => $model->title,
             'price' => $model->price,
             'description' => $model->description,
-            'image' => $model->image_url,
+            'image' => $model->image,
+            'image_url' => $model->image_url,
             'qty' => $model->qty,
             'rating' => $model->rating
         ];
