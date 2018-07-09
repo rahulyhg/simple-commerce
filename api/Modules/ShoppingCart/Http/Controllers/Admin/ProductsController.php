@@ -16,7 +16,7 @@ class ProductsController extends Controller
 {
     public function index(ProductTransformer $productTransformer)
     {
-        $models = Product::select('*')->withRating()->withQty()->paginate(20);
+        $models = Product::select('*')->withRating()->withQty()->latest()->paginate(20);
 
         return response()->json(
             fractal()
@@ -63,7 +63,7 @@ class ProductsController extends Controller
                 $request->validated()
             )->save();
 
-            $product->categories()->sync(array_merge($request->categories, $request->brands));
+            $product->categories()->sync(array_merge($request->categories, (array)$request->brands));
 
             DB::commit();
         } catch (\Exception $e) {
