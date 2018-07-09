@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router';
 import Login from './Components/Pages/Login';
 import Products from './Components/Pages/Products';
 import Categories from './Components/Pages/Categories';
+import Brands from './Components/Pages/Brands';
 
 export default (
     <Switch>
@@ -15,7 +16,11 @@ export default (
         <Route path="/categories/create" component={Categories.Create} />
         <Route path="/categories/:id/edit" component={Categories.Edit} />
         <Route path="/categories" component={Categories.Index} />
-        <Route component={Categories.Create} />
+
+        <Route path="/brands/create" component={Brands.Create} />
+        <Route path="/brands/:id/edit" component={Brands.Edit} />
+        <Route path="/brands" component={Brands.Index} />
+        <Route component={Brands.Create} />
         {/* <Route path="/" component={Home} /> */}
     </Switch>
 );
