@@ -11,6 +11,8 @@ export default (
     <Switch>
         <Route path="/login" component={Login} />
         <Route path="/products/create" component={Products.Create} />
+        <Route path="/products/:id/edit" component={Products.Edit} />
+        <Route path="/products/:id" component={Products.Show} />
         <Route path="/products" component={Products.Index} />
 
         <Route path="/categories/create" component={Categories.Create} />

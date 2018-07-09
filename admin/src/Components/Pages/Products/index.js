@@ -9,6 +9,8 @@ import EmptyRaw from '../../EmptyRaw';
 import ProductRow from './ProductRow';
 
 import Create from './Create';
+import Edit from './Edit';
+import Show from './Show';
 
 class Index extends Component {
     constructor(props) {
@@ -25,7 +27,9 @@ class Index extends Component {
             {id: 4, text: 'Price'},
             {id: 5, text: 'Available Qty'},
             {id: 6, text: 'Actions'},
-        ]
+        ];
+
+        this.deleteProduct = this.deleteProduct.bind(this);
     }
 
     componentDidMount(){
@@ -44,6 +48,27 @@ class Index extends Component {
         this.setState({products: response.data});
     }
 
+    async deleteProduct(product){
+        let {response, status} = await Api.jsonAuth(
+            this.props.user.token,
+            'delete',
+            `admin/products/${product.id}`
+        );
+
+        if (parseInt(status) !== 200){
+            return;
+        }
+
+        let products = this.state.products;
+        const index = products.findIndex(prod => prod.id === product.id);
+        products = [
+            ...products.slice(0,index-1),
+            ...products.slice(index+1)
+        ];
+
+        return this.setState({products})
+    }
+
     render() {
         if(!this.props.user.token){
             return <Redirect to="/login" />
@@ -54,7 +79,7 @@ class Index extends Component {
         if(!products.length){
             tableContent = <EmptyRaw colspan="6">No Products Yet</EmptyRaw>
         }else{
-            tableContent = products.map(product => <ProductRow key={product.id} product={product} />)
+            tableContent = products.map(product => <ProductRow onDeleteClicked={this.deleteProduct} key={product.id} product={product} />)
         }
 
         return (
@@ -78,5 +103,7 @@ let reduxIndex = connect(mapStateToProps)(Index);
 
 export default {
     Index: reduxIndex,
-    Create
+    Create,
+    Edit,
+    Show
 };
