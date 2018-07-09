@@ -213,3 +213,7 @@ body{
 .table{
   margin-bottom: 0;
 }
+
+.label{
+  @include font-size(1.6);
+}
