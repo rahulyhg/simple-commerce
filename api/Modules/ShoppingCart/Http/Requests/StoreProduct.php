@@ -15,7 +15,7 @@ class StoreProduct extends FormRequest
     {
         return [
             'title' => 'bail|required',
-            'price' => 'bail|required',
+            'price' => 'bail|required|integer',
             'description' => 'bail|required',
             'image' => 'required',
             'categories' => 'required',

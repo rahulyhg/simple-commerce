@@ -35,8 +35,7 @@ class ProductsController extends Controller
 
         try{
             $model = Product::create($request->validated());
-
-            $model->categories()->sync(array_merge($request->categories, $request->brands));
+            $model->categories()->sync(array_merge($request->categories, (array)$request->brands));
 
             DB::commit();
         }catch(\Exception $e){
