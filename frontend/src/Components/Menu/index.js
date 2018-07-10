@@ -59,7 +59,7 @@ class Menu extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.User,
+        user: state.User.info || {},
     }
 }
 

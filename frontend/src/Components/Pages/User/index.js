@@ -1,44 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 import RegisterForm from '../Register/RegisterForm';
+import { updateUserInfo } from '../User/actions';
 
 class UserProfile extends Component {
-    constructor(props) {
-        super(props);
-        this.updateProfile = this.updateProfile.bind(this);
-    }
 
-    updateProfile(){
-        return Promise.resolve({
-            meta: {
-                code: 1
-            }
-        });
-    }
     render() {
-        // const user = props.user;
-        const user = {
-            id: 1,
-            first_name: "Mohammed",
-            last_name: "Manssour",
-            birthday : "1992-9-12",
-            country: {
-                value: 1,
-                label: 'Syria'
-            },
-            city: {
-                value: 1,
-                label: 'Damascus'
-            },
-            address: "this is address"
+        const user = this.props.user;
+        if(!user.token){
+            return <Redirect to="/login" />
         }
+
         return (
             <section className="home-section clearfix">
                 <div className="home-section-title">
-                    <h1>Update {user.first_name+' '+user.last_name} Profile</h1>
+                    <h1>Update {user.info.first_name+' '+user.info.last_name} Profile</h1>
                 </div>
                 <div className="col-xs-12">
-                    <RegisterForm user={user} onRegisterClick={this.updateProfile} />
+                    <RegisterForm user={user.info} token={user.token} onUpdateSuccess={this.props.updateUserInfo} />
                 </div>
 
             </section>
@@ -48,6 +28,10 @@ class UserProfile extends Component {
 
 const mapStateToProps  = (state) => ({
     user: state.User
-})
+});
 
-export default connect(mapStateToProps)(UserProfile);
+const mapDispatchToProps = (dispatch) => ({
+    updateUserInfo: (user) => dispatch(updateUserInfo(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

@@ -1,8 +1,15 @@
 const User = (state = {}, action) => {
     if (action.type === 'LOG_USER_IN'){
         return {
-            user: action.user,
+            info: action.user,
             token: action.token
+        }
+    }
+
+    if (action.type === 'UPDATE_USER_INFO'){
+        return {
+            ...state,
+            info: action.user
         }
     }
 
