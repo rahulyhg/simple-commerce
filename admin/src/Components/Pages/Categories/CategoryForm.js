@@ -11,8 +11,8 @@ class CategoryForm extends Component {
         super(props);
 
         this.state = {
-            name: props.category.name,
-            image: props.category.image,
+            name: props.category.name || '',
+            image: props.category.image || '',
             loadingState: '',
             errors : []
         }

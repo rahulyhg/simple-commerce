@@ -67,8 +67,8 @@ class Index extends Component {
                 actionBtns={<Link to="/categories/create" className="btn btn-primary m-t-15">Create Category</Link>}>
                 <Loader state={this.state.loaderState}>
                     <Table headers={this.headers} hover={true} striped={true}>
-                        {!props.categories.length && <EmptyRow colspan="4">No Categories were added</EmptyRow>}
-                        {props.categories.length && props.categories.map(cat => <CategoryRow onDeleteActionClicked={this.onDeleteActionClicked} key={cat.id} category={cat} />)}
+                        {props.categories.length == 0 && <EmptyRow colspan="4">No Categories were added</EmptyRow>}
+                        {props.categories.length > 0 && props.categories.map(cat => <CategoryRow onDeleteActionClicked={this.onDeleteActionClicked} key={cat.id} category={cat} />)}
                     </Table>
                 </Loader>
             </Panel>
