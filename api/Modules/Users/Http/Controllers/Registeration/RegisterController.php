@@ -16,7 +16,14 @@ class RegisterController extends Controller
 	public function index(StoreUser $request)
 	{
 		$user = User::create(
-			$request->validated()
+			collect($request->validated())
+			->map(function($value, $key){
+				if($key == 'password'){
+					return bcrypt($value);
+				}
+				return $value;
+			})
+			->toArray()
 		);
 
 		$user->activate()->approve();
