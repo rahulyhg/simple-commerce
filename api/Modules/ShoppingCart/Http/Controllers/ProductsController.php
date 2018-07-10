@@ -27,7 +27,8 @@ class ProductsController extends Controller
                     ->when(request('brands', 'all') != 'all',function($query){
                         return $query->inCategories(request('brands'), 'brand');
                     })
-                    ->paginate(20);
+                    ->latest()
+                    ->paginate(request('items', 20));
 
         return response()->json(
             fractal()
