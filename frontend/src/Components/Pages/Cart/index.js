@@ -31,8 +31,8 @@ class Cart extends Component {
                                     return (
                                         <tr key={item.product.id}>
                                             <td>{index+1}</td>
-                                            <td><img src={item.product.thumbnail} alt={item.product.name} className="img-responsive"/></td>
-                                            <td>{item.product.name}</td>
+                                            <td><img src={`${item.product.image_url}`} alt={item.product.title} className="img-responsive"/></td>
+                                            <td>{item.product.title}</td>
                                             <td>{item.product.price}</td>
                                             <td>{item.product.price * item.qty}</td>
                                             <td><QtyField product={item.product}>{item.qty}</QtyField></td>
