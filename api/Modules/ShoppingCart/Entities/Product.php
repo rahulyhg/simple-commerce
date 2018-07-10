@@ -58,4 +58,12 @@ class Product extends Model
             'rating'
         );
     }
+
+    public function scopeInCategories($query, $categories, $type = 'default')
+    {
+        return $query->whereHas('categories', function($query) use($type, $categories){
+            $query->where('type', $type)
+                ->whereIn('categories.id', (array)$categories);
+        });
+    }
 }
