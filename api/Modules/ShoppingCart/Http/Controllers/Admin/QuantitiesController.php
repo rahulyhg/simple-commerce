@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\ShoppingCart\Entities\Product;
 use Modules\ShoppingCart\Entities\Quantity;
+use Modules\ShoppingCart\Events\QuantityUpdated;
 use Modules\ShoppingCart\Http\Requests\StoreQuantity;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
@@ -63,6 +64,8 @@ class QuantitiesController extends Controller
         $model = Quantity::create(
             array_add($request->validated(), 'product_id', $this->product->id)
         );
+
+        event(new QuantityUpdated($this->product, $model));
 
         return response()->json(
             fractal()

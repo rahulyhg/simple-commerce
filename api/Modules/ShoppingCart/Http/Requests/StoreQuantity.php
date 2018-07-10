@@ -15,7 +15,9 @@ class StoreQuantity extends FormRequest
     {
         return [
             'value' => 'required|integer',
-            'type' => 'required|in:out,in'
+            'type' => 'required|in:out,in',
+            'price_per_unit' => 'nullable|required_if:type,in|integer',
+            'comments' => 'nullable'
         ];
     }
 

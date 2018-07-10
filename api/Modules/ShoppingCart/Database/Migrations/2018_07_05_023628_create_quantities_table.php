@@ -18,6 +18,8 @@ class CreateQuantitiesTable extends Migration
             $table->unsignedInteger('product_id')->index();
             $table->string('type')->default('in');
             $table->integer('value');
+            $table->integer('price_per_unit')->nullable();
+            $table->text('comments')->nullable();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');
