@@ -55,7 +55,7 @@ class ProductsController extends Controller
             fractal()
                 ->item($product)
                 ->transformWith($productTransformer)
-                ->parseIncludes(['categories', 'brands'])
+                ->parseIncludes(['categories', 'brands', 'comments'])
                 ->addMeta(generate_meta('success'))
                 ->toArray(),
             200
