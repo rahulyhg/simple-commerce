@@ -188,3 +188,8 @@ html{
     @include font-size(2);
     color: #fdcb6e
 }
+
+.label{
+  @include font-size(1.6);
+  font-weight: normal;
+}
