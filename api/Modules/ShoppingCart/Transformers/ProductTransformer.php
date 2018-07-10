@@ -24,7 +24,7 @@ class ProductTransformer extends TransformerAbstract
     public function transform($model)
     {
         return [
-            'model_type' => Product::class,
+            'model_type' => 'product',
             'id' => $model->id,
             'title' => $model->title,
             'price' => $model->price,

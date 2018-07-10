@@ -31,7 +31,7 @@ class OrderTransformer extends TransformerAbstract
     public function transform($model)
     {
         return [
-            'model_type' => Order::class,
+            'model_type' => 'order',
             'id' => $model->id,
             'status' => $model->latest_status,
             'created_at' => $model->created_at->format('Y-m-d H:i'),
