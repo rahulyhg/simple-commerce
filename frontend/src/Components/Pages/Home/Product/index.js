@@ -15,7 +15,7 @@ class Product extends Component {
             <div className={className}>
                 <div className="thumbnail">
                     <Link to={"products/" + product.id}>
-                        <img src={product.image} alt={product.name} className="img-responsive"/>
+                        <img src={`${product.image_url}?s=400`} alt={product.title} className="img-responsive"/>
                     </Link>
 
                     <div className="actions">
@@ -25,7 +25,7 @@ class Product extends Component {
                     </div>
                 </div>
                 <section className="info">
-                    <h3 className="title">{product.name}</h3>
+                    <h3 className="title">{product.title}</h3>
                     <div className="rating">
                         <Rating
                             start={0}
@@ -39,7 +39,7 @@ class Product extends Component {
                         />
                     </div>
                     <div><strong>Price:</strong> <span className="price">{product.price}$</span></div>
-                    <div><strong>Brand:</strong> <span className="price">{product.brand.data.name}</span></div>
+                    <div><strong>Brand:</strong> <span className="price">{product.brands.data[0].name}</span></div>
                 </section>
             </div>
         );
