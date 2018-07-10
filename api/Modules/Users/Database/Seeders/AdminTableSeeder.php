@@ -19,13 +19,27 @@ class AdminTableSeeder extends Seeder
         Model::unguard();
 
         DB::table('users')->insert([
-            'first_name' => 'Mohammed',
-            'last_name' => 'Manssour',
+            'first_name' => 'Admin',
+            'last_name' => 'Admin',
             'password' => bcrypt('secret'),
-            'email' => 'manssour.mohammed@gmail.com',
+            'email' => 'admin@example.com',
             'address' => 'Lebanon Bierut',
             'birthday' => '1992-09-12',
-            'type' => 'admin'
+            'type' => 'admin',
+            'created_at' => now()->toDateTimeString(),
+            'updated_at' => now()->toDateTimeString(),
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'User',
+            'last_name' => 'User',
+            'password' => bcrypt('secret'),
+            'email' => 'user@example.com',
+            'address' => 'Lebanon Bierut',
+            'birthday' => '1992-09-12',
+            'type' => 'user',
+            'created_at' => now()->toDateTimeString(),
+            'updated_at' => now()->toDateTimeString(),
         ]);
 
         // $this->call("OthersTableSeeder");
