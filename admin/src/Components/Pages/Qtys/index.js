@@ -25,8 +25,9 @@ class Index extends Component {
             {id: 1, text: "#"},
             {id: 2, text: "Type"},
             {id: 3, text: "Qty"},
+            {id: 3, text: "Price Per Unit"},
             {id: 4, text: "Created At"},
-            // {id: 5, text: "Comments"}
+            {id: 5, text: "Comments"}
         ]
 
         this.getQtyLogs = this.getQtyLogs.bind(this);

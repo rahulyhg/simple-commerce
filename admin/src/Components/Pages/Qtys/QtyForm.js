@@ -12,13 +12,17 @@ class QtyForm extends Component {
 
         this.state = {
             value: '',
-            type: '',
+            price_per_unit: 0,
+            type: {},
+            comments : '',
             buttonState: '',
             errors: ''
         }
 
-        this.onValueChanged = this.onValueChanged.bind(this);
         this.onTypeChange = this.onTypeChange.bind(this);
+        this.onValueChanged = this.onValueChanged.bind(this);
+        this.onPricePerUnitChanged = this.onPricePerUnitChanged.bind(this);
+        this.onCommentsChanged = this.onCommentsChanged.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
 
         this.options = [
@@ -29,6 +33,14 @@ class QtyForm extends Component {
 
     onValueChanged(e){
         this.setState({value: e.target.value});
+    }
+
+    onPricePerUnitChanged(e){
+        this.setState({price_per_unit: e.target.value});
+    }
+
+    onCommentsChanged(e){
+        this.setState({comments: e.target.value});
     }
 
     onTypeChange(selectedOption){
@@ -50,7 +62,9 @@ class QtyForm extends Component {
             `admin/products/${this.props.product.id}/quantities`,
             {
                 type: this.state.type.value,
-                value: this.state.value
+                value: this.state.value,
+                price_per_unit: this.state.price_per_unit,
+                comments: this.state.comments
             }
         );
 
@@ -77,6 +91,23 @@ class QtyForm extends Component {
                 <div className="form-group">
                     <label htmlFor="value">Qty</label>
                     <input placeholder="Qty" type="number" value={this.state.value} onChange={this.onValueChanged} className="form-control" id="value"/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="price_per_unit">Price Per Unit</label>
+                    <input
+                        placeholder="Price Per Unit"
+                        type="price_per_unit"
+                        value={this.state.price_per_unit}
+                        onChange={this.onPricePerUnitChanged}
+                        className="form-control"
+                        id="price_per_unit"
+                        disabled={this.state.type.value !== 'in' ? 'disabled' : ''} />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="comments">Comments</label>
+                    <textarea placeholder="Comments" value={this.state.comments} onChange={this.onCommentsChanged} className="form-control" id="comments" />
                 </div>
 
                 <div className="pull-right">

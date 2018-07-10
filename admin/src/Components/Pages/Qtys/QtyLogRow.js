@@ -12,8 +12,12 @@ class QtyLogRow extends Component {
                     {model.type == 'out' && <Label type="danger">Out</Label>}
                 </td>
                 <td>{model.value}</td>
+                <td>
+                    {model.type == 'in' && model.price_per_unit}
+                    {model.type == 'out' && '-'}
+                </td>
                 <td>{model.created_at}</td>
-                {/* <td></td> */}
+                <td>{model.comments}</td>
             </tr>
         );
     }
