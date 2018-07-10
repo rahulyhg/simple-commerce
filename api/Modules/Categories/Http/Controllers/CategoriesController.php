@@ -17,7 +17,7 @@ class CategoriesController extends Controller
      */
     public function index(CategoryTransformer $categoryTransformer)
     {
-        $models = Category::limit(3)->inRandomOrder()->get();
+        $models = Category::where('type', 'default')->limit(3)->inRandomOrder()->get();
 
         return response()->json(
             fractal()
