@@ -67,8 +67,8 @@ class Index extends Component {
                 actionBtns={<Link to="/brands/create" className="btn btn-primary m-t-15">Create Brand</Link>}>
                 <Loader state={this.state.loaderState}>
                     <Table headers={this.headers} hover={true} striped={true}>
-                        {!props.brands.length && <EmptyRow colspan="4">No Brands were added</EmptyRow>}
-                        {props.brands.length && props.brands.map(cat => <BrandRow onDeleteActionClicked={this.onDeleteActionClicked} key={cat.id} brand={cat} />)}
+                        {props.brands.length == 0 && <EmptyRow colspan="4">No Brands were added</EmptyRow>}
+                        {props.brands.length > 0 && props.brands.map(cat => <BrandRow onDeleteActionClicked={this.onDeleteActionClicked} key={cat.id} brand={cat} />)}
                     </Table>
                 </Loader>
             </Panel>

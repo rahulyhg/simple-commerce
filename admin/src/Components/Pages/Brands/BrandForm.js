@@ -11,8 +11,8 @@ class BrandForm extends Component {
         super(props);
 
         this.state = {
-            name: props.brand.name,
-            image: props.brand.image,
+            name: props.brand.name || '',
+            image: props.brand.image || '',
             loadingState: '',
             errors : []
         }
