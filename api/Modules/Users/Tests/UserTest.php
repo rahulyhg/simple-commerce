@@ -15,7 +15,9 @@ class UserTest extends JwtTestCase
 	{
 		 parent::setUp();
 		 $this->admin = factory(User::class)->create();
-		 $this->user = factory(User::class)->create();
+		 $this->user = factory(User::class)->create([
+			'email' => 'manssour.mohammed@gmail.com',
+		 ]);
 	}
 
 	/** @test */

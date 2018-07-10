@@ -2,6 +2,7 @@
 
 namespace Modules\Users\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateUser extends FormRequest
@@ -16,7 +17,12 @@ class UpdateUser extends FormRequest
 		$rules = [
 			'first_name' => 'bail|required',
 			'last_name' => 'bail|required',
-			'email' => 'bail|required|email|unique:users',
+			'email' => [
+				'bail',
+				'required',
+				'email',
+				Rule::unique('users')->ignore($this->user()->id),
+			],
 			'birthday' => 'bail|nullable|date',
 			'address' => 'bail|nullable',
 		];
