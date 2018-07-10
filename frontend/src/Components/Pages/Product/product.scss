@@ -1,0 +1,35 @@
+@import '../../../scss/mixins/_all';
+.react-tabs{
+    margin-top: 50px;
+
+    .pb-button{
+        line-height: 25px;
+    }
+}
+.react-tabs__tab-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+}
+
+.react-tabs__tab{
+    display: inline-block;
+    cursor: pointer;
+    padding: 20px 30px;
+    margin: 0 10px;
+
+    @include border-radius(4px);
+
+    &:hover, &.react-tabs__tab--selected{
+        background-color: #008EF9;
+        color: #fff;
+    }
+}
+
+.react-tabs__tab-panel{
+    margin-top: 30px;
+    @include font-size(1.8);
+    line-height: 35px;
+}
