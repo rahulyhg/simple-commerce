@@ -7,6 +7,7 @@ use Modules\Users\Traits\HasRoles;
 use Spatie\ModelStatus\HasStatuses;
 use Modules\Users\Traits\Approvable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Modules\ShoppingCart\Traits\HasWishlist;
 use Modules\Users\Traits\HasActivationToken;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -15,7 +16,8 @@ class User extends Authenticatable implements JWTSubject
 	use Approvable,
 		HasRoles,
 		HasActivationToken,
-		UsesJWT;
+		UsesJWT,
+		HasWishlist;
 	/**
 	 * The attributes that are mass assignable.
 	 *

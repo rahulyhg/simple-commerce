@@ -12,6 +12,11 @@ Route::middleware(GetUserIfToken::class)->group(function () {
 
 Route::middleware('auth:api')->group(function(){
     Route::apiResource('orders', 'OrdersController');
+
+    Route::delete('wishlist','WishlistController@destroy');
+    Route::apiResource('wishlist', 'WishlistController',[
+        'except' => ['update', 'show', 'destroy']
+    ]);
 });
 
 Route::prefix('admin')->namespace('Admin')->middleware(['auth:api', ApiAdmin::class])->group(function(){
