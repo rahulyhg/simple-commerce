@@ -1,10 +1,68 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import QtyField from './QtyField';
-import { updateCart } from "./actions";
+import { flashErrorMessage, flashSuccessMessage } from 'redux-flash';
+import { updateCart, flushCart } from "./actions";
+import Table from '../../Table';
+import Loader from '../../Loader';
+import Api from '../../Api';
+import CartRow from './CartRow';
 import './Cart.css'
 
 class Cart extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loaderState: 'success',
+            emptyMessage: 'You haven\'t added any items in the cart'
+        }
+
+        this.headers = [
+            {id: 1, text: '#'},
+            {id: 2, text: 'Image'},
+            {id: 3, text: 'Product Name'},
+            {id: 4, text: 'Qty'},
+            {id: 5, text: 'Total Price'}
+        ]
+
+        this.submitOrder = this.submitOrder.bind(this);
+    }
+
+
+    submitOrder(e){
+        e.preventDefault();
+
+        this.sendOrderRequest();
+    }
+
+    async sendOrderRequest(){
+        if(!this.props.user.token){
+            this.props.sendErrorFlashMessage('You need to login before submitting order');
+            return;
+        }
+
+        this.setState({loaderState: 'loading'});
+
+        let products = this.props.cart.map(item => ({product_id: item.product.id, qty:item.qty}) );
+        let {response, status} = await Api.jsonAuth(
+            this.props.user.token,
+            'post',
+            'orders',
+            {products}
+        );
+
+        this.setState({ loaderState: 'success' });
+        if (parseInt(status) !== 200){
+            this.props.sendErrorFlashMessage('An error Occurred while submitting order');
+            return;
+        }
+
+        this.setState({emptyMessage: 'Order was submitted successfully and cart was cleaned'});
+        this.props.sendSuccessFlashMessage('Order was submitted successfully');
+        this.props.flushCart();
+    }
+
     render() {
         const cart = this.props.cart;
         return (
@@ -15,43 +73,26 @@ class Cart extends Component {
                             <h1>Shopping Cart</h1>
                         </div>
 
-                        <table className="text-center table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Image</td>
-                                    <td>Product Name</td>
-                                    <td>Price</td>
-                                    <td>Total price</td>
-                                    <td>Qty</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {cart.map((item, index) => {
-                                    return (
-                                        <tr key={item.product.id}>
-                                            <td>{index+1}</td>
-                                            <td><img src={`${item.product.image_url}`} alt={item.product.title} className="img-responsive"/></td>
-                                            <td>{item.product.title}</td>
-                                            <td>{item.product.price}</td>
-                                            <td>{item.product.price * item.qty}</td>
-                                            <td><QtyField product={item.product}>{item.qty}</QtyField></td>
-                                        </tr>
-                                    );
-                                })}
+                        <Loader state={this.state.loaderState}>
 
-                                {
-                                    !cart.length &&
-                                    (<tr>
-                                        <td colSpan="6">You haven't added any items in the cart</td>
-                                    </tr>)
+                            <Table hover striped headers={this.headers}>
+                                {cart.length > 0 && cart.map((item,index) =>
+                                    <CartRow key={item.product.id} index={index} item={item} />
+                                )}
+
+                                {!cart.length &&
+                                    <tr>
+                                        <td colSpan="6" className="text-center">{this.state.emptyMessage}</td>
+                                    </tr>
                                 }
-                            </tbody>
-                        </table>
+
+                            </Table>
+
+                        </Loader>
 
                         <div className="pull-right btn-group">
                             <button onClick={this.props.onUpdateClick} className="m-t-50 m-b-50 btn btn-primary">Update Cart</button>
-                            <button className="m-t-50 m-b-50 btn btn-success">Submit Order</button>
+                            <button className="m-t-50 m-b-50 btn btn-success" onClick={this.submitOrder}>Submit Order</button>
                         </div>
                     </div>
                 </div>
@@ -61,11 +102,15 @@ class Cart extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    cart: state.CartReducer
+    cart: state.CartReducer,
+    user: state.User
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onUpdateClick: () => dispatch(updateCart())
+    onUpdateClick: () => dispatch(updateCart()),
+    flushCart: () => dispatch(flushCart()),
+    sendErrorFlashMessage: (message) => dispatch(flashErrorMessage(message)),
+    sendSuccessFlashMessage: (message) => dispatch(flashSuccessMessage(message))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

@@ -21,6 +21,10 @@ const CartReducer = (state = [], action) => {
         return state.filter((item) => item.qty > 0);
     }
 
+    if (action.type === 'FLUSH_CART'){
+        return [];
+    }
+
     return state;
 }
 

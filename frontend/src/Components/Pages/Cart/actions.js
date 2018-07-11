@@ -11,3 +11,7 @@ export const decrementProduct = (product) => ({
 export const updateCart = () => ({
     type: 'UPDATE_CART'
 });
+
+export const flushCart = () => ({
+    type: 'FLUSH_CART'
+});
