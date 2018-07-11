@@ -10,6 +10,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 
 import routes from './routes';
+import FlashMessages from './Components/FlashMessages';
 
 class App extends Component {
   render() {
@@ -17,16 +18,15 @@ class App extends Component {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ConnectedRouter history={history}>
-
-
-          <div className="site">
-            <Header />
-            <div className="content">
-              {routes}
+            <div className="site">
+              <FlashMessages />
+              <Header />
+              <div className="content">
+                {routes}
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </ConnectedRouter>
+          </ConnectedRouter>
         </PersistGate>
       </Provider>
     );

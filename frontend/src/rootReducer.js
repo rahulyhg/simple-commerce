@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as flashReducer } from 'redux-flash'
 import CartReducer from './Components/Pages/Cart/reducer';
 import User from "./Components/Pages/User/reducer";
 
@@ -8,6 +9,7 @@ import User from "./Components/Pages/User/reducer";
 const rootReducer = combineReducers({
     CartReducer,
     User,
+    flash: flashReducer,
     router: routerReducer
 });
 

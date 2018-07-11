@@ -193,3 +193,32 @@ html{
   @include font-size(1.6);
   font-weight: normal;
 }
+
+.flash-messages-container{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+
+  width: 320px;
+  display: block;
+
+  @include font-size(1.6);
+}
+
+.transition-enter {
+  opacity: 0.01;
+}
+
+.transition-enter.transition-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.transition-leave {
+  opacity: 1;
+}
+
+.transition-leave.transition-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
