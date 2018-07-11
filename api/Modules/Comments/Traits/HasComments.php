@@ -2,6 +2,7 @@
 
 namespace Modules\Comments\Traits;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Comments\Entities\Comment;
 
 trait HasComments {
@@ -32,9 +33,20 @@ trait HasComments {
             Comment::select('rating')
                 ->where('model_type', Product::class)
                 ->whereRaw('model_id = products.id')
-                ->where('user_id', optional(auth()->user())->id)
+                ->where('comments.user_id', optional(auth()->user())->id)
                 ->getQuery(),
             'current_user_rate'
+        );
+    }
+
+    public function scopeWithRating($query)
+    {
+        return $query->selectSub(
+            Comment::select(DB::raw('sum(rating)/count(id)'))
+                ->where('model_type', Product::class)
+                ->whereRaw('model_id = products.id')
+                ->getQuery(),
+            'rating'
         );
     }
 
