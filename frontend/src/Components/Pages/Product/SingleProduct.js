@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
 import ProductInfoLine from './ProductInfoLine';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import LoginForm from '../LogIn/LoginForm';
 import Label from '../../Label';
 import Rating from 'react-rating';
-import Comments from './Comments';
+import CommentsList from './CommentsList';
 import CommentForm from './CommentForm';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import AlertBox from '../../AlertBox';
 
 class SingleProduct extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            comments: props.product.comments.data || []
+        };
+
+        this.afterCommentSaved = this.afterCommentSaved.bind(this);
+    }
+
+    afterCommentSaved(comment){
+        let comments = this.state.comments;
+        comments = [
+            comment,
+            ...comments
+        ];
+        this.setState({comments});
+    }
+
     render() {
         const product = this.props.product;
         return (
@@ -58,10 +79,20 @@ class SingleProduct extends Component {
                                 {product.description}
                             </TabPanel>
                             <TabPanel>
-                                <Comments comments={product.comments} />
+                                <CommentsList comments={this.state.comments} />
                             </TabPanel>
                             <TabPanel>
-                                <CommentForm product={product} />
+                                {(typeof this.props.user.token != 'undefined' && product.current_user_rate === null) &&
+                                    <CommentForm user={this.props.user} product={product} onCommentSaved={this.afterCommentSaved} /> }
+
+                                {(typeof this.props.user.token != 'undefined' && product.current_user_rate !== null) &&
+                                <AlertBox type="info">You have submitted a review for this product before</AlertBox> }
+                                {!this.props.user.token && (
+                                    <React.Fragment>
+                                        <h4 className="text-center">You have to login in order to submit a review</h4>
+                                        <LoginForm />
+                                    </React.Fragment>
+                                ) }
                             </TabPanel>
                         </Tabs>
                     </div>

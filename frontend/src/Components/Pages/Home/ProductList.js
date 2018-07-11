@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import Product from "./Product";
 import Api from "../../Api";
 import Loader from "../../Loader";
@@ -18,7 +19,12 @@ class ProductsList extends Component {
     }
 
     async getProducts(){
-        let { response, status} = await Api.json('get','products?items=6');
+        let headers = {};
+        if(this.props.user.token){
+            headers['Authorization'] = `Bearer ${this.props.user.token}`;
+        }
+
+        let { response, status} = await Api.json('get','products?items=6',{},headers);
 
         if (parseInt(status) !== 200){
             this.setState({ loader: 'empty'});
@@ -44,5 +50,8 @@ class ProductsList extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    user: state.User
+})
 
-export default ProductsList;
+export default connect(mapStateToProps)(ProductsList);

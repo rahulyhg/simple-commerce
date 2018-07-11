@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import Api from '../../Api';
 import Loader from '../../Loader';
 import SingleProduct from './SingleProduct'
@@ -23,7 +24,12 @@ class Product extends Component {
     }
 
     async getProduct(){
-        let { response, status } = await Api.json('get',`products/${this.id}`)
+        //user is logged in add it's token
+        let headers = {};
+        if(typeof this.props.user.token !== 'undefined'){
+            headers['Authorization'] = `Bearer ${this.props.user.token}`;
+        }
+        let { response, status } = await Api.json('get', `products/${this.id}`, {}, headers);
 
         status = parseInt(status);
         if (status == 404){
@@ -51,11 +57,15 @@ class Product extends Component {
                 </div>
 
                 <Loader state={this.state.loader}>
-                    <SingleProduct product={this.state.product} />
+                    <SingleProduct product={this.state.product} user={this.props.user} />
                 </Loader>
             </section>
         );
     }
 }
 
-export default Product;
+const mapStateToProps = (state) => ({
+    user: state.User
+})
+
+export default connect(mapStateToProps)(Product);
