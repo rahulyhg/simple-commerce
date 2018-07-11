@@ -64,6 +64,13 @@ class CommentsController extends Controller
 
     public function store(StoreComment $request, CommentTransformer $commentTransformer)
     {
+        if( $this->hasPreviousComments() ){
+            return response()->json(
+                ['meta' => generate_meta('failure',['You have reviewed this product before'])],
+                403
+            );
+        }
+
         $model = $this->model->comments()->save(
             new Comment(
                 array_add($request->validated(), 'user_id', auth()->user()->id)
@@ -106,5 +113,11 @@ class CommentsController extends Controller
         $model->delete();
 
         return response()->json(['meta' => generate_meta('success')], 200);
+    }
+
+
+    private function hasPreviousComments()
+    {
+        return $this->model->comments()->where('user_id', auth()->user()->id)->first();
     }
 }
