@@ -3,9 +3,18 @@
 namespace Modules\Comments\Transformers;
 
 use League\Fractal\TransformerAbstract;
+use Modules\Users\Transformers\UserTransformer;
 
 class CommentTransformer extends TransformerAbstract
 {
+
+    /**
+     * Include resources without needing it to be requested.
+     *
+     * @var array
+     */
+    protected $defaultIncludes = ['user'];
+
     /**
      * A Fractal transformer.
      *
@@ -19,5 +28,10 @@ class CommentTransformer extends TransformerAbstract
             'rating' => $model->rating,
             'replies_count' => $model->replies_count
         ];
+    }
+
+    public function includeUser($model)
+    {
+        return $this->item($model->user, new UserTransformer);
     }
 }
