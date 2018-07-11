@@ -21,6 +21,7 @@ class ProductsController extends Controller
                     ->with('brands')
                     ->withQty()
                     ->withRating()
+                    ->withUserRate()
                     ->when(request('categories', 'all') != 'all',function($query){
                         return $query->inCategories(request('categories'));
                     })
@@ -49,7 +50,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product, ProductTransformer $productTransformer)
     {
-        $product->load('dCategories', 'brands');
+        $product->load('dCategories', 'brands', 'comments', 'comments.user');
 
         return response()->json(
             fractal()
