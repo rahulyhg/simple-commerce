@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './Header.css';
 import Menu from '../Menu'
 
@@ -6,7 +7,7 @@ import Menu from '../Menu'
 class Header extends Component {
     render() {
         return (
-            <header className="site-header">
+            <header className={`site-header ${this.props.location === '/' ? '' : 'inner'}`}>
                 <div className="container">
                     <nav className="top-bar row">
                         <div className="col-xs-6 logo">
@@ -29,4 +30,8 @@ class Header extends Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+    location: state.router.location.pathname
+})
+
+export default connect(mapStateToProps)(Header);
