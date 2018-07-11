@@ -22,6 +22,7 @@ class ProductsController extends Controller
                     ->withQty()
                     ->withRating()
                     ->withUserRate()
+                    ->withInWishlist()
                     ->when(request('categories', 'all') != 'all',function($query){
                         return $query->inCategories(request('categories'));
                     })

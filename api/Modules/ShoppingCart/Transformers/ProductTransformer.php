@@ -33,7 +33,8 @@ class ProductTransformer extends TransformerAbstract
             'image_url' => $model->image_url,
             'qty' => $model->qty,
             'rating' => (int)$model->rating,
-            'current_user_rate' => $model->current_user_rate
+            'current_user_rate' => $model->current_user_rate,
+            'added_to_wishlist' => $model->added_to_wishlist
         ];
     }
 
