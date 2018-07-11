@@ -16,7 +16,7 @@ class StoreOrder extends FormRequest
         return [
             'products' => 'required',
             'products.*.product_id' => 'required|exists:products,id',
-            'products.*.qty' => 'required|min:0'
+            'products.*.qty' => 'required|min:1'
         ];
     }
 
