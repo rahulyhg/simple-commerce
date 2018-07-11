@@ -1,10 +1,14 @@
 <?php
 
 use Modules\Users\Http\Middleware\ApiAdmin;
+use Modules\Users\Http\Middleware\GetUserIfToken;
 
-Route::apiResource('products', 'ProductsController', [
-    'only' => ['index', 'show']
-]);
+
+Route::middleware(GetUserIfToken::class)->group(function () {
+    Route::apiResource('products', 'ProductsController', [
+        'only' => ['index', 'show']
+    ]);
+});
 
 Route::middleware('auth:api')->group(function(){
     Route::apiResource('orders', 'OrdersController');
