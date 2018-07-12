@@ -12,11 +12,13 @@ class Table extends Component {
         });
         return (
             <table className={classes}>
+                { props.headers.length > 0 &&
                 <thead>
                     <tr>
                         {props.headers.map(header=> <th key={header.id}>{header.text}</th>)}
                     </tr>
                 </thead>
+                }
                 <tbody>
                     {this.props.children}
                 </tbody>

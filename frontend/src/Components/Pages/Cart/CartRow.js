@@ -3,15 +3,19 @@ import QtyField from './QtyField';
 
 class CartRow extends Component {
     render() {
-        const item = this.props.item;
+        const product = this.props.product;
+        const qtyField = this.props.qtyType ? this.props.qtyType : 'default'
         return (
             <tr>
                 <td>{this.props.index + 1}</td>
-                <td><img src={`${item.product.image_url}`} alt={item.product.title} className="img-responsive" /></td>
-                <td>{item.product.title}</td>
-                <td>{item.product.price}</td>
-                <td><QtyField product={item.product}>{item.qty}</QtyField></td>
-                <td>{item.product.price * item.qty}</td>
+                <td><img src={`${product.image_url}`} alt={product.title} className="img-responsive" /></td>
+                <td>{product.title}</td>
+                <td>{product.price}</td>
+                <td>
+                    {qtyField === 'default' && <QtyField product={product}>{this.props.qty}</QtyField>}
+                    {qtyField === 'number-only' && this.props.qty}
+                </td>
+                <td>{product.price * this.props.qty}</td>
             </tr>
         );
     }

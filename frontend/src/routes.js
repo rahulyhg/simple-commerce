@@ -10,11 +10,15 @@ import Register from './Components/Pages/Register';
 import UserProfile from './Components/Pages/User';
 import Product from './Components/Pages/Product';
 import Wishlist from './Components/Pages/Wishlist';
+import Order from './Components/Pages/Order';
+import Show from './Components/Pages/Order/Show';
 
 export default (
     <Switch>
         <Route path="/login" component={LogIn} />
         <Route path="/Register" component={Register} />
+        <Route path="/orders/:id" component={Show} />
+        <Route path="/orders" component={Order} />
         <Route path="/profile" component={UserProfile} />
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/cart" component={Cart} />

@@ -31,6 +31,7 @@ class Menu extends Component {
             menu.push({ text: 'Sign in', path: '/login' });
             menu.push({ text: 'Register', path: '/register' });
         }else{
+            menu.push({ text: 'My Orders', path: '/orders' });
             menu.push({ text: 'My Account', path: '/profile' });
             menu.push({ text: 'Wishlist', path: '/wishlist' });
         }

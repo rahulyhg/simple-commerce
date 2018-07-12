@@ -77,7 +77,7 @@ class Cart extends Component {
 
                             <Table hover striped headers={this.headers}>
                                 {cart.length > 0 && cart.map((item,index) =>
-                                    <CartRow key={item.product.id} index={index} item={item} />
+                                    <CartRow key={item.product.id} index={index} product={item.product} qty={item.qty} />
                                 )}
 
                                 {!cart.length &&
