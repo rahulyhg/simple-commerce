@@ -33,8 +33,9 @@ class OrderTransformer extends TransformerAbstract
         return [
             'model_type' => 'order',
             'id' => $model->id,
-            'status' => $model->latest_status,
+            'status' => $model->status,
             'created_at' => $model->created_at->format('Y-m-d H:i'),
+            'total_price' => $model->total_price
         ];
     }
 
