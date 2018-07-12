@@ -23,7 +23,7 @@ class ProductTransformer extends TransformerAbstract
      */
     public function transform($model)
     {
-        return [
+        $output = [
             'model_type' => 'product',
             'id' => $model->id,
             'title' => $model->title,
@@ -34,8 +34,14 @@ class ProductTransformer extends TransformerAbstract
             'qty' => $model->qty,
             'rating' => (int)$model->rating,
             'current_user_rate' => $model->current_user_rate,
-            'added_to_wishlist' => $model->added_to_wishlist
+            'added_to_wishlist' => $model->added_to_wishlist,
         ];
+
+        if(isset($model->pivot)){
+            $output['qty_pivot'] = $model->pivot->qty;
+        }
+
+        return $output;
     }
 
     public function includeCategories($model)
