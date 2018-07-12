@@ -27,6 +27,7 @@ class OrdersController extends Controller
                         ->when(!($user = auth()->user())->isSuperAdmin(), function($query) use($user){
                             return $query->where('user_id', $user->id);
                         })
+                        ->latest()
                         ->paginate(20);
 
         return response()->json(
