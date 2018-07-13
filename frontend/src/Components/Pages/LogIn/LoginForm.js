@@ -62,7 +62,7 @@ class LoginForm extends Component {
     }
 
     render() {
-        if (this.state.loginState){
+        if (this.state.loginState === 'success'){
             return <Redirect to="/" />
         }
 
