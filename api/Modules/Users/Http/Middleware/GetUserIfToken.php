@@ -5,6 +5,7 @@ namespace Modules\Users\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 
 class GetUserIfToken
@@ -23,8 +24,12 @@ class GetUserIfToken
             return $next($request);
         }
 
-        JWTAuth::parser()->setRequest($request);
-        JWTAuth::parseToken()->authenticate();
+        try{
+
+            JWTAuth::parser()->setRequest($request);
+            JWTAuth::parseToken()->authenticate();
+
+        }catch(TokenInvalidException $e){}
         return $next($request);
     }
 }
