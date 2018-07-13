@@ -23,6 +23,10 @@ class TreasuryPapersController extends Controller
 
         $models = TreasuryPaper::whereDate('created_at','>=',$start_date)
                         ->whereDate('created_at','<=',$end_date)
+                        ->when(request('type', 'all') != 'all', function($query){
+                            return $query->where('model_type','LIKE','%'.request('type'));
+                        })
+                        ->latest()
                         ->paginate(20);
 
         return response()->json(

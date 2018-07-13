@@ -6,6 +6,7 @@ import Panel from '../../Panel';
 import Table from '../../Table';
 import Loader from '../../Loader';
 import TreasuryPaperRow from './TreasuryPaperRow';
+import FilterForm from './FilterForm';
 
 class Index extends Component {
     constructor(props) {
@@ -14,9 +15,13 @@ class Index extends Component {
         this.state = {
             loading: 'loading',
             models: [],
+
+            type: 'all',
+            start_date: '',
+            end_date: ''
         }
 
-        this.getTreasuryPapers = this.getTreasuryPapers.bind(this);
+        this.onFilterFormSubmitted = this.onFilterFormSubmitted.bind(this);
 
         this.headers = [
             {id: 1, text: "#"},
@@ -31,11 +36,15 @@ class Index extends Component {
         this.getTreasuryPapers();
     }
 
+    onFilterFormSubmitted(data){
+        this.setState(data, () => this.getTreasuryPapers());
+    }
+
     async getTreasuryPapers(){
         let {response,status} = await Api.jsonAuth(
             this.props.user.token,
             'get',
-            'admin/treasurypapers'
+            `admin/treasurypapers?start_date=${this.state.start_date}&end_date=${this.state.end_date}&type=${this.state.type}`
         );
 
         if(status !== 200){
@@ -52,6 +61,10 @@ class Index extends Component {
                 actionBtns={<Link to="/treasury-papers/create" className="btn btn-primary">Create Treasury Papers</Link>}
                 >
                 <Loader state={this.state.loading}>
+                    <FilterForm
+                        onFormSubmit={this.onFilterFormSubmitted}
+                        />
+
                     <Table headers={this.headers}>
                         {this.state.models.map((model, index) => <TreasuryPaperRow key={model.id} index={index} model={model} />)}
                         {this.state.models.length <= 0 &&
