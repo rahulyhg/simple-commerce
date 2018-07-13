@@ -21,7 +21,7 @@ class FrontendCategoriesTest extends TestCase
             ]);
         });
 
-        $res = $this->json('get', 'api/categories');
+        $res = $this->json('get', 'api/categories?limit=3&random=true');
 
         $res->assertStatus(200);
         $res->assertJson(['meta' => generate_meta('success')]);
