@@ -7,6 +7,7 @@ import Products from './Components/Pages/Products';
 import Categories from './Components/Pages/Categories';
 import Brands from './Components/Pages/Brands';
 import Qty from './Components/Pages/Qtys';
+import Orders from './Components/Pages/Orders/index';
 import TreasuryPapers from './Components/Pages/TreasuryPapers';
 
 export default (
@@ -29,9 +30,12 @@ export default (
         <Route path="/brands/:id/edit" component={Brands.Edit} />
         <Route path="/brands" component={Brands.Index} />
 
+        <Route path="/orders/:id" component={Orders.Show} />
+        <Route path="/orders" component={Orders.Index} />
+
         <Route path="/treasury-papers" component={TreasuryPapers.Index} />
 
-        <Route component={Brands.Create} />
-        {/* <Route path="/" component={Home} /> */}
+        <Route component={Orders.Index} />
+        <Route path="/" component={Products.Index} />
     </Switch>
 );
