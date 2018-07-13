@@ -24,10 +24,13 @@ class ProductsController extends Controller
                     ->withUserRate()
                     ->withInWishlist()
                     ->when(request('categories', 'all') != 'all',function($query){
-                        return $query->inCategories(request('categories'));
+                        return $query->inCategories(explode(',', request('categories')));
                     })
                     ->when(request('brands', 'all') != 'all',function($query){
-                        return $query->inCategories(request('brands'), 'brand');
+                        return $query->inCategories(explode(',', request('brands')), 'brand');
+                    })
+                    ->when(request('s', false) != 'all',function($query){
+                        return $query->where('title', 'LIKE', '%'.request('s').'%');
                     })
                     ->latest()
                     ->paginate(request('items', 20));
