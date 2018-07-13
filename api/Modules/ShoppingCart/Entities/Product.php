@@ -68,5 +68,15 @@ class Product extends Model
             'added_to_wishlist'
         );
     }
+
+    public function scopeWithRating($query)
+    {
+        return $query->selectSub(
+            Comment::select(DB::raw('sum(rating)/count(id)'))
+                ->where('model_type', 'LIKE', '%Product')
+                ->whereRaw('model_id = products.id')
+                ->getQuery(),
+            'rating'
+        );
+    }
 }
-// "SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== wishlist.product_id and `wishlist`.`user_id` = ? order by `wishlist`.`id` des' at line 1 (SQL: select *, (select sum(value) from `quantities` where product_id = products.id and `type` = in) as `in`, (select sum(value) from `quantities` where product_id = products.id and `type` = out) as `out`, (select sum(rating)/count(id) from `comments` where `model_type` = Modules\Comments\Traits\Product and model_id = products.id) as `rating`, (select `rating` from `comments` where `model_type` = Modules\Comments\Traits\Product and model_id = products.id and `comments`.`user_id` = 3) as `current_user_rate`, (select * from `wishlist` where products.id == wishlist.product_id and `wishlist`.`user_id` = 3 order by `wishlist`.`id` desc) as `in_current_user_wishlist` from `products` where `products`.`deleted_at` is null order by `created_at` desc limit 6 offset 0)"

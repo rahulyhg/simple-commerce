@@ -39,17 +39,6 @@ trait HasComments {
         );
     }
 
-    public function scopeWithRating($query)
-    {
-        return $query->selectSub(
-            Comment::select(DB::raw('sum(rating)/count(id)'))
-                ->where('model_type', Product::class)
-                ->whereRaw('model_id = products.id')
-                ->getQuery(),
-            'rating'
-        );
-    }
-
     /*----------------------------------------------------
     * Attributes
     --------------------------------------------------- */
