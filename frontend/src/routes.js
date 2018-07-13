@@ -8,6 +8,7 @@ import Cart from './Components/Pages/Cart';
 import LogIn from './Components/Pages/LogIn';
 import Register from './Components/Pages/Register';
 import UserProfile from './Components/Pages/User';
+import Products from './Components/Pages/Products';
 import Product from './Components/Pages/Product';
 import Wishlist from './Components/Pages/Wishlist';
 import Order from './Components/Pages/Order';
@@ -23,6 +24,7 @@ export default (
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/cart" component={Cart} />
         <Route path="/products/:id" component={Product} />
+        <Route path="/products" component={Products} />
         <Route path="/" component={Home} />
     </Switch>
 );
