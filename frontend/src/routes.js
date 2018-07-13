@@ -24,6 +24,7 @@ export default (
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/cart" component={Cart} />
         <Route path="/products/:id" component={Product} />
+        <Route path="/category/:id" component={Products} />
         <Route path="/products" component={Products} />
         <Route path="/" component={Home} />
     </Switch>

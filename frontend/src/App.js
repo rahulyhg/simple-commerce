@@ -19,7 +19,7 @@ class App extends Component {
         <PersistGate loading={null} persistor={persistor}>
           <ConnectedRouter history={history}>
             <div className="site">
-              <FlashMessages />
+              {/* <FlashMessages /> */}
               <Header />
               <div className="content">
                 {routes}

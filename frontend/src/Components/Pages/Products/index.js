@@ -13,11 +13,13 @@ class Index extends Component {
         super(props);
 
         this.state = {
-            categories:  [],
+            categories: parseInt(props.match.params.id) ? [parseInt(props.match.params.id)] : [],
             brands: [],
             keyword: '',
 
             products: [],
+
+            selectedCategories: [parseInt(props.match.params.id)],
 
             loaderState: 'loading'
         }
@@ -93,7 +95,7 @@ class Index extends Component {
                     <aside className="filter-sidebar col-xs-12 col-sm-6 col-md-3">
                         <FilterSideBar
                             categories={this.props.categories}
-                            selectedCategories={[]}
+                            selectedCategories={this.state.selectedCategories}
                             brands={this.props.brands}
                             selectedBrands={[]}
                             onFilterStart={this.filterProducts}
