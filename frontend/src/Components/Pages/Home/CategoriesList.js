@@ -21,7 +21,7 @@ class CategoriesList extends Component {
     }
 
     async getCategories() {
-        let { response, status } = await Api.json('get', 'categories');
+        let { response, status } = await Api.json('get', 'categories?limit=3&random=true');
 
         if (parseInt(status) !== 200) {
             this.setState({ categoriesLoader: 'empty' })
