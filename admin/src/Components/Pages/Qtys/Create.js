@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Api from '../../Api';
 import Loader from '../../Loader';
 import Panel from '../../Panel';
@@ -44,7 +44,7 @@ class Create extends Component {
 
     render() {
         if(this.state.hasError){
-            //TODO::redirect to 404
+            return <Redirect to="/404" />
         }
         return (
             <Panel

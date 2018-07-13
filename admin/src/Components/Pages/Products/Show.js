@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Panel from '../../Panel';
 import Loader from '../../Loader';
 import Api from '../../Api';
@@ -40,7 +40,7 @@ class Show extends Component {
 
     render() {
         if(this.state.hasError){
-            //TODO: redirect to 404 page
+            return <Redirect to="/404" />
         }
 
         return (

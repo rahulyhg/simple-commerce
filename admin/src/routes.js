@@ -9,6 +9,7 @@ import Brands from './Components/Pages/Brands';
 import Qty from './Components/Pages/Qtys';
 import Orders from './Components/Pages/Orders/index';
 import TreasuryPapers from './Components/Pages/TreasuryPapers';
+import P404 from './Components/Pages/P404';
 
 export default (
     <Switch>
@@ -35,7 +36,8 @@ export default (
 
         <Route path="/treasury-papers" component={TreasuryPapers.Index} />
 
-        <Route component={Orders.Index} />
+        <Route component={P404} />
+        <Route path="/" component={Products.Index} />
         <Route path="/" component={Products.Index} />
     </Switch>
 );
