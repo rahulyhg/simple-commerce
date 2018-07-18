@@ -14,7 +14,7 @@ class Category extends BaseCategory
 	--------------------------------------------------- */
 	public function getImageUrlAttribute()
 	{
-		return 'http://files.microservices.test/api/files/'.$this->image;
+		return 'https://files.mohammedmanssour.me/api/files/'.$this->image;
 	}
 
 	/*----------------------------------------------------

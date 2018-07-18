@@ -15,6 +15,6 @@ class TreasuryPaper extends Model
     --------------------------------------------------- */
     public function accountable()
     {
-        return $this->morphTo('accountable', 'model_type', 'model_id');
+        return $this->morphTo('accountable', 'model_type', 'model_id')->withTrashed();
     }
 }

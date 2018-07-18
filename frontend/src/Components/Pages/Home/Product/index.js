@@ -14,13 +14,13 @@ class Product extends Component {
         return (
             <div className={className}>
                 <div className="thumbnail">
-                    <Link to={"products/" + product.id}>
+                    <Link to={"/products/" + product.id}>
                         <img src={`${product.image_url}?s=400`} alt={product.title} className="img-responsive"/>
                     </Link>
 
                     <div className="actions">
                         <CartLink product={product} />
-                        <Link to={"products/" + product.id}><i className="icon-eye"></i></Link>
+                        <Link to={"/products/" + product.id}><i className="icon-eye"></i></Link>
                         <LoveLink product={product} />
                     </div>
                 </div>

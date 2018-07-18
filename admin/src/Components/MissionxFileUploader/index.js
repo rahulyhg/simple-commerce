@@ -34,7 +34,7 @@ class MissionxFileUploader extends Component {
         if(image.substr(0,4).toLowerCase() === 'http'){
             return image;
         }
-        return `http://files.microservices.test/api/files/${image}`;
+        return `https://files.mohammedmanssour.me/api/files/${image}`;
     }
 
     render() {

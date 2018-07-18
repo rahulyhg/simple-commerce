@@ -20,7 +20,7 @@ class BrandRow extends Component {
         return (
             <tr>
                 <td>{brand.id}</td>
-                <td><img src={`${brand.image}?s=100`} alt={brand.name} className="img-responsive"/></td>
+                <td><img src={`${brand.image_url}?s=100`} alt={brand.name} className="img-responsive"/></td>
                 <td>{brand.name}</td>
                 <td>
                     <div className="btn-group">

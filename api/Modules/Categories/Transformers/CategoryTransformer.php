@@ -24,7 +24,8 @@ class CategoryTransformer extends TransformerAbstract
 			'id' => $model->id,
 			'name' => $model->name,
 			'slug' => $model->slug,
-			'image' => $model->image_url
+			'image' => $model->image,
+			'image_url' => $model->image_url
 		];
 	}
 

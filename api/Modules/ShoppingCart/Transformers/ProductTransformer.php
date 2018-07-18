@@ -23,6 +23,7 @@ class ProductTransformer extends TransformerAbstract
      */
     public function transform($model)
     {
+        dd($model);
         $output = [
             'model_type' => 'product',
             'id' => $model->id,

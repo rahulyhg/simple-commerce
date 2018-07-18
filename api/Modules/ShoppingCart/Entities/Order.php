@@ -7,12 +7,14 @@ use Spatie\ModelStatus\Status;
 use Modules\Users\Traits\Approvable;
 use Illuminate\Database\Eloquent\Model;
 use Modules\ShoppingCart\Entities\Product;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\TreasuryPapers\Traits\Accountable;
 
 class Order extends Model
 {
     use Approvable,
-        Accountable;
+        Accountable,
+        SoftDeletes;
 
     protected $fillable = ['user_id'];
 

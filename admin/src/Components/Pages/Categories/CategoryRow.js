@@ -20,7 +20,7 @@ class CategoryRow extends Component {
         return (
             <tr>
                 <td>{category.id}</td>
-                <td><img src={category.image} alt={category.name} className="img-responsive"/></td>
+                <td><img src={category.image_url} alt={category.name} className="img-responsive"/></td>
                 <td>{category.name}</td>
                 <td>
                     <div className="btn-group">

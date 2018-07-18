@@ -29,9 +29,8 @@ class Product extends Model
     --------------------------------------------------- */
     public function getImageUrlAttribute()
     {
-        return 'http://files.microservices.test/api/files/'.$this->image;
+        return 'https://files.mict/api/files/'.$this->image;
     }
-
     /*----------------------------------------------------
     * Relationships
     --------------------------------------------------- */

@@ -1,6 +1,6 @@
 export default class Api {
     constructor() {
-        this.baseUrl = 'http://api.wheels.test/api';
+        this.baseUrl = 'https://wheelsapi.mohammedmanssour.me/api';
 
         this.status = 200;
     }
@@ -52,7 +52,7 @@ export default class Api {
         let formData = new FormData();
         formData.append(fileFieldName, file);
 
-        let response = await fetch('http://files.microservices.test/api/files', {
+        let response = await fetch('https://files.mohammedmanssour.me/api/files', {
             method: 'post',
             body: formData
         });

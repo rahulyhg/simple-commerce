@@ -54,4 +54,16 @@ trait HasComments {
         return $comment->rating;
     }
 
+    public function getRatingAttribute(){
+        if(property_exists($this,'rating')){
+            return $this->rating;
+        }
+
+        $models = $this->comments()->get();
+        if(!$models->count()){
+            return 0;
+        }
+        return $models->sum('rating')/$models->count();
+    }
+
 }
